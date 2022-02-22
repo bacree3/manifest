@@ -18,9 +18,8 @@ phases:
     commands:
       - 'expo build:web'
 artifacts:
-  baseDirectory: web-build
   files:
-    - '**/*'
+    - 'web-build/*'
 cache:
   paths:
     - node_modules/**/*
