@@ -14,4 +14,4 @@ web-build/
 .DS_Store
 
 # parameters
-aws-exports.js
+.env
