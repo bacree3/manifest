@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "test2",
-    "slug": "test2",
+    "name": "Manifest",
+    "slug": "Manifest",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
