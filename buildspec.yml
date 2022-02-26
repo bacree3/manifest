@@ -16,6 +16,7 @@ phases:
         fi
   build:
     commands:
+      - 'wget https://manifest-environment-variables.s3.amazonaws.com/aws-exports.js'
       - 'expo build:web'
 artifacts:
   files:
