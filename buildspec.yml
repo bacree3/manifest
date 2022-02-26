@@ -5,6 +5,7 @@ phases:
       nodejs: 14
   pre_build:
     commands:
+      - 'aws s3 cp s3://manifest-environment-variables/aws-exports.js aws-exports.js'
       - npm install --silent --global expo-cli
       - |-
         if [ -f yarn.lock ]; then
@@ -16,7 +17,6 @@ phases:
         fi
   build:
     commands:
-      - 'wget https://manifest-environment-variables.s3.amazonaws.com/aws-exports.js'
       - 'expo build:web'
 artifacts:
   files:
