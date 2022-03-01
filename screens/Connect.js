@@ -17,14 +17,14 @@ const styles = StyleSheet.create({
     marginBottom: 50
   },
   nav: {
-    flexDirection: 'row',
+    flexDirection: 'row'
   },
 });
 
-export default function Journal({navigation}) {
+export default function Connect({navigation}) {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>J O U R N A L    E N T R I E S</Text>
+      <Text style={styles.text}>C O M M U N I T Y     C O N N E C T</Text>
       <View style={styles.nav}>
         <Button onPress={() => navigation.navigate('Journal')}>Journal</Button>
         <Button onPress={() => navigation.navigate('Connect')}>Connect</Button>
