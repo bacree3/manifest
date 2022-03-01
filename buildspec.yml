@@ -7,14 +7,7 @@ phases:
     commands:
       - 'aws s3 cp s3://manifest-environment-variables/aws-exports.js aws-exports.js'
       - npm install --silent --global expo-cli
-      - |-
-        if [ -f yarn.lock ]; then
-         yarn
-        elif [ -f package-lock.json ] || [ -f npm-shrinkwrap.json ]; then
-         npm ci
-        else
-         npm install
-        fi
+      - npm install
   build:
     commands:
       - 'expo build:web'
