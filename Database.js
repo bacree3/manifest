@@ -1,7 +1,4 @@
-//import database_api from './aws-exports';
-//import User from './Users';
-
-const database_api = 'https://ivbz5omkn7.execute-api.us-east-1.amazonaws.com/ManifestRDSGeneric';
+import database_api from './aws-exports';
 
 class Database {
     constructor() {
@@ -70,11 +67,4 @@ class Journal {
     }
 }
 
-values = ['test', 0, 0];
-columns = ['uid', 'points', 'streak'];
-table = 'user';
-
-db = new Database();
-
-db.insertValues(table, columns, values);
-//export default Database;
+export default Database;
