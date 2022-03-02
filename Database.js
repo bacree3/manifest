@@ -52,10 +52,12 @@ class Journal {
 
     constructor() {
         let db = new Database();
+        let table = 'journal';
     }
 
-    async add() {
-        // uses insert Values
+    // example add
+    async add(userid, category, message) {
+        return await db.insertValues(this.table, ['uid', 'category', 'message'], [userid, category, message])
     }
 
     async edit() {
