@@ -1,4 +1,3 @@
-import React from 'react';
 import database_api from './aws-exports';
 
 class Database {
@@ -6,19 +5,51 @@ class Database {
         this.url = database_api;
     }
 
-    executeQuery(queryString) {
+    async executeQuery(queryString) {
         const request_options = {
             'method': 'GET',
             'headers': {
                 'query': queryString
             }
         };
-        let request = fetch(this.url, request_options)
-        request.then((response) => response.json()).then((json) => {
-            return json;
-        }).catch((error) => {
-            console.error(error);
-        });
+        return fetch(this.url, request_options);
+    }
+
+    async insertValues(table, columns, values) {
+        // to do: generate query strings
+        // queryString = ??
+        return await executeQuery(queryString);
+    }
+
+    async editValues(table, identifier, columns, value) {
+        // to do: generate query strings
+        // queryString = ??
+        return await executeQuery(queryString);
+    }
+
+    async readValues(table, identifier, value) {
+        // to do: generate query strings
+        // queryString = ??
+        return await executeQuery(queryString);
+    }
+}
+
+class Journal {
+
+    constructor() {
+        let db = new Database();
+    }
+
+    async addJournalEntry() {
+        // uses insert Values
+    }
+
+    async editJournalEntry() {
+
+    }
+
+    sync delete() {
+
     }
 }
 
