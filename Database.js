@@ -31,19 +31,31 @@ class Database {
 
         let queryString = 'INSERT INTO '  + '`' + table + '`' + columnString
             + ' VALUES ' + valueString + ';';
-        console.log(queryString);
         return await this.executeQuery(queryString);
     }
 
-    async editValues(table, identifier, columns, value) {
-        // to do: generate query strings
-        // queryString = ??
+    async editValues(table, identifier, identifier_value, columns, values) {
+        let updateString = '';
+        columns.forEach((item, i) => {
+            updateString += item + ' = "' + values[i] + '",';
+        });
+        // remove extra comma
+        updateString = updateString.slice(0, -1);
+
+        let queryString = 'UPDATE '  + '`' + table + '` SET ' + updateString
+            + ' WHERE ' + identifier + ' = ' + '"' + identifier_value + '"' + ';';
         return await this.executeQuery(queryString);
     }
 
-    async readValues(table, identifier, value) {
-        // to do: generate query strings
-        // queryString = ??
+    async readValues(table, identifier, identifier_value) {
+        let queryString = 'SELECT * FROM ' + '`' + table + '`' + ' WHERE '
+            + identifier + ' = "' + identifier_value + '";';
+        return await this.executeQuery(queryString);
+    }
+
+    async deleteValues(table, identifier, identifier_value) {
+        let queryString = 'DELETE FROM ' + '`' + table + '`' + ' WHERE '
+            + identifier + ' = "' + identifier_value + '";';
         return await this.executeQuery(queryString);
     }
 }
