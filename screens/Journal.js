@@ -30,7 +30,7 @@ export default function Journal({navigation}) {
         <Button onPress={() => navigation.navigate('Journal')}>Journal</Button>
         <Button onPress={() => navigation.navigate('Connect')}>Connect</Button>
         <Button onPress={() => navigation.navigate('Goals')}>Goals</Button>
-        <Button onPress={() => navigation.navigate('Mood')}>Mood</Button>
+        <Button onPress={() => navigation.navigate('Logs')}>Wellness</Button>
       </View>
     </View>
   )
