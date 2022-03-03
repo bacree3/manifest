@@ -58,6 +58,14 @@ class Database {
             + identifier + ' = "' + identifier_value + '";';
         return await this.executeQuery(queryString);
     }
+
+    async deleteCompositeValues(table, identifier_array, identifier_value_array) {
+        let queryString = 'DELETE FROM ' + '`' + table + '`' + ' WHERE '
+            + identifier_array[0] + ' = "' + identifier_value_array[0] + '" AND '
+            + '`' + identifier_array[1] + '` = "' + identifier_value_array[1] + '";';
+        console.log(queryString);
+        return await this.executeQuery(queryString);
+    }
 }
 
 class Journal {
