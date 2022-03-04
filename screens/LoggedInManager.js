@@ -1,10 +1,10 @@
 import { StyleSheet} from 'react-native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Journal from '../screens/Journal';
-import Connect from '../screens/Connect';
-import Goals from '../screens/Goals';
-import Mood from '../screens/Mood';
+import Journal from './Journal';
+import Connect from './Connect';
+import Goals from './Goals';
+import Mood from './Mood';
 import React from 'react';
 
 const Tab = createMaterialBottomTabNavigator();
@@ -50,12 +50,12 @@ function MyTabs() {
 
 
 
-const AppNaviagtor = () => {
+const LoggedInManager = () => {
   return (
       <MyTabs />
   );
 };
 
-export default AppNaviagtor;
+export default LoggedInManager;
 
 const styles = StyleSheet.create({});

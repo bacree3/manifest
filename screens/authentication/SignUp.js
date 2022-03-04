@@ -50,7 +50,7 @@ export default function SignUp({ navigation }) {
           console.log(err);
         });
     } else {
-      setInvalidMessage('Password must be equal and have greater lenght than 6.');
+      setInvalidMessage('Password must be equal and have greater length than 6.');
     }
   };
 
