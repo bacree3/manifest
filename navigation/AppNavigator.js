@@ -1,44 +1,58 @@
 import { StyleSheet} from 'react-native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Journal from '../screens/Journal';
-import Connect from '../screens/Connect';
+
+import Home from  '../screens/tabs/Home';
+import Journal from '../screens/tabs/Journal';
+import Connect from '../screens/tabs/Connect';
+import HealthData from '../screens/tabs/HealthData';
+import Profile from '../screens/tabs/Profile';
+
 import Goals from '../screens/Goals';
 import Mood from '../screens/Mood';
+
 import React from 'react';
 
 const Tab = createMaterialBottomTabNavigator();
 
 function MyTabs() {
     return (
-        <Tab.Navigator initialRouteName="Journal" activeColor="#007a74" barStyle={{ backgroundColor: '#BDE3DF' }}>
-            <Tab.Screen name="Journal" component={Journal}
+        <Tab.Navigator initialRouteName="Home" activeColor="#007a74" barStyle={{ backgroundColor: '#BDE3DF' }}>
+            <Tab.Screen name="Home" component={Home}
             options={{
-                tabBarLabel: 'Journal',
+                tabBarLabel: 'Home',
                 tabBarIcon: ({ color }) => (
                 <MaterialCommunityIcons name="home" color={color} size={26} />
                 ),
             }}
             />
-            <Tab.Screen name="Connect" component={Connect}
+            <Tab.Screen name="Journal" component={Journal}
             options={{
-                tabBarLabel: 'Connect',
-                tabBarIcon: ({ color }) => (
-                <MaterialCommunityIcons name="bell" color={color} size={26} />
-                ),
-            }}
-            />
-            <Tab.Screen name="Goals" component={Goals}
-            options={{
-                tabBarLabel: 'Goals',
+                tabBarLabel: 'Journal',
                 tabBarIcon: ({ color }) => (
                 <MaterialCommunityIcons name="clipboard-list" color={color} size={26} />
                 ),
             }}
             />
-            <Tab.Screen name="Mood" component={Mood}
+            <Tab.Screen name="HealthData" component={HealthData}
             options={{
-                tabBarLabel: 'Mood',
+                tabBarLabel: 'Health Data',
+                tabBarIcon: ({ color }) => (
+                <MaterialCommunityIcons name="heart" color={color} size={26} />
+                ),
+            }}
+            />
+            <Tab.Screen name="Community" component={Connect}
+            options={{
+                tabBarLabel: 'Community',
+                tabBarIcon: ({ color }) => (
+                <MaterialCommunityIcons name="bell" color={color} size={26} />
+                ),
+            }}
+            />
+            <Tab.Screen name="Profile" component={Profile}
+            options={{
+                tabBarLabel: 'Profile',
                 tabBarIcon: ({ color }) => (
                 <MaterialCommunityIcons name="account" color={color} size={26} />
                 ),

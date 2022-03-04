@@ -2,14 +2,14 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Button from '../components/Button';
+import Button from '../../components/Button';
 
 
-export default function Mood({navigation}) {
+export default function Journal({navigation}) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
-        <Text style={styles.text}>M O O D     J O U R N A L</Text>
+        <Text style={styles.text}>J O U R N A L    E N T R I E S</Text>
         <View style={styles.nav}>
 
         </View>
