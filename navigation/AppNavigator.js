@@ -11,7 +11,7 @@ const Tab = createMaterialBottomTabNavigator();
 
 function MyTabs() {
     return (
-        <Tab.Navigator initialRouteName="Journal" activeColor="#e91e63" barStyle={{ backgroundColor: 'tomato' }}>
+        <Tab.Navigator initialRouteName="Journal" activeColor="#007a74" barStyle={{ backgroundColor: '#BDE3DF' }}>
             <Tab.Screen name="Journal" component={Journal}
             options={{
                 tabBarLabel: 'Journal',

@@ -1,6 +1,22 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import Button from '../components/Button';
+
+
+export default function Goals({navigation}) {
+  return (
+    <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
+        <Text style={styles.text}>G O A L     T R A C K E R</Text>
+        <View style={styles.nav}>
+
+        </View>
+      </View>
+    </SafeAreaView>
+  )
+}
+
 
 const styles = StyleSheet.create({
   container: {
@@ -20,17 +36,3 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
   },
 });
-
-export default function Goals({navigation}) {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.text}>G O A L     T R A C K E R</Text>
-      <View style={styles.nav}>
-        <Button onPress={() => navigation.navigate('Journal')}>Journal</Button>
-        <Button onPress={() => navigation.navigate('Connect')}>Connect</Button>
-        <Button onPress={() => navigation.navigate('Goals')}>Goals</Button>
-        <Button onPress={() => navigation.navigate('Mood')}>Mood</Button>
-      </View>
-    </View>
-  )
-}
