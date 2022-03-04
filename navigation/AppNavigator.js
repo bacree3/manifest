@@ -1,4 +1,4 @@
-import { StyleSheet} from 'react-native';
+
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -9,7 +9,7 @@ import HealthData from '../screens/tabs/HealthData';
 import Profile from '../screens/tabs/Profile';
 
 import Goals from '../screens/Goals';
-import Mood from '../screens/Mood';
+
 
 import {StyleSheet} from 'react-native';
 import React from 'react';
