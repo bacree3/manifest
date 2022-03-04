@@ -1,22 +1,16 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Button from '../components/Button';
+import Button from '../../components/Button';
 
 
-export default function Goals({navigation}) {
+export default function Home() {
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.container}>
-        <Text style={styles.text}>G O A L     T R A C K E R</Text>
-        <View style={styles.nav}>
-
-        </View>
-      </View>
+      <Text style={styles.text}>You are now authenticated</Text>
     </SafeAreaView>
   )
 }
-
 
 const styles = StyleSheet.create({
   container: {

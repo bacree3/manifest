@@ -1,6 +1,27 @@
+
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+<<<<<<< HEAD:screens/Wellness/Logs.js
 import Button from '../../components/Button';
+=======
+import { SafeAreaView } from 'react-native-safe-area-context';
+import Button from '../components/Button';
+>>>>>>> ashray:screens/Mood.js
+
+
+export default function Mood({navigation}) {
+  return (
+    <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
+        <Text style={styles.text}>M O O D     J O U R N A L</Text>
+        <View style={styles.nav}>
+
+        </View>
+      </View>
+    </SafeAreaView>
+  )
+}
+
 
 const styles = StyleSheet.create({
   container: {
@@ -21,6 +42,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around'
   },
   nav: {
+<<<<<<< HEAD:screens/Wellness/Logs.js
     flexDirection: 'row',
     justifyContent: 'center'
   },
@@ -44,3 +66,8 @@ export default function Logs({navigation}) {
     </View>
   )
 }
+=======
+      flexDirection: 'row',
+  },
+});
+>>>>>>> ashray:screens/Mood.js
