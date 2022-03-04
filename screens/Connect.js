@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Button from '../components/Button';
 
 
-export default function Goals({navigation}) {
+export default function Connect({navigation}) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
