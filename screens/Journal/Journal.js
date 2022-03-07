@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import Button from '../components/Button';
-import Database from '../Database';
+import Button from '../../components/Button';
 
 const styles = StyleSheet.create({
   container: {
@@ -26,6 +25,7 @@ export default function Journal({navigation}) {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>J O U R N A L    E N T R I E S</Text>
+      <Button onPress={() => navigation.navigate('Entry')}>Add Entry</Button>
       <View style={styles.nav}>
         <Button onPress={() => navigation.navigate('Journal')}>Journal</Button>
         <Button onPress={() => navigation.navigate('Connect')}>Connect</Button>
