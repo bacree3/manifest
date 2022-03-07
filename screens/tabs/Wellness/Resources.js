@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, StyleSheet, Linking } from 'react-native';
-import Button from '../../components/Button';
 
 const styles = StyleSheet.create({
   container: {
@@ -46,7 +45,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Resources({navigation}) {
+export default function Resources() {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>O T H E R     R E S O U R C E S</Text>
@@ -77,13 +76,6 @@ export default function Resources({navigation}) {
       <View style={styles.orgContainer}>
         <Text style={styles.org}>GTPD: </Text>
         <Text onPress={() => Linking.openURL(`tel:${4048942500}`)}>404-894-2500</Text>
-      </View>
-
-      <View style={styles.nav}>
-        <Button onPress={() => navigation.navigate('Journal')}>Journal</Button>
-        <Button onPress={() => navigation.navigate('Connect')}>Connect</Button>
-        <Button onPress={() => navigation.navigate('Goals')}>Goals</Button>
-        <Button onPress={() => navigation.navigate('Logs')}>Wellness</Button>
       </View>
     </View>
   )
