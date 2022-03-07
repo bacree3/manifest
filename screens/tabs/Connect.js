@@ -1,14 +1,15 @@
+
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Button from '../components/Button';
+import Button from '../../components/Button';
 
 
-export default function Goals({navigation}) {
+export default function Connect({navigation}) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
-        <Text style={styles.text}>G O A L     T R A C K E R</Text>
+        <Text style={styles.text}>C O M M U N I T Y     C O N N E C T</Text>
         <View style={styles.nav}>
 
         </View>
