@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
       marginLeft: 20,
       marginBottom: 2,
       fontSize: 18,
-      fontWeight: 600
+      fontWeight: '600'
   },
   unitContainer: {
     flexDirection: 'row',
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     marginTop: 20,
     fontSize: 18,
-    fontWeight: 600
+    fontWeight: '600'
   },
   notifyContainer: {
     display: 'flex',
