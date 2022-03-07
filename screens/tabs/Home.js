@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Button from '../../components/Button';
+import axios from 'axios';
 
 
 export default function Home() {
 
-  const [markeOpen, setMarketOpen] = useState("");
+  const [marketOpen, setMarketOpen] = useState("");
 
   const makeDBQuery = async () => {
     var query = 'https://api.polygon.io/v1/marketstatus/now?apiKey=EepXZYpz1RiHneHcnRHQupa8To6g53Dv'
@@ -16,14 +17,6 @@ export default function Home() {
     try {
         data = await axios.get(query)
         .then(response => {
-
-            toast.show('The market is ' + response.data.market, {
-                type: 'success',
-                position: 'top',
-                duration: 10000,
-                offset: 30,
-                animationType: 'slide-in'
-          });
             
             
             if (response.data.market == 'closed') {
@@ -31,6 +24,7 @@ export default function Home() {
             } else {
                 setMarketOpen("true");
             }
+            alert(marketOpen);
         })
     } catch (error) {
         alert(error)
@@ -41,6 +35,7 @@ export default function Home() {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.text}>You are now authenticated</Text>
+      <Button onPress={() => makeDBQuery()}>Check Market Status</Button>
     </SafeAreaView>
   )
 }
