@@ -56,7 +56,7 @@ class Database {
         updateString = updateString.slice(0, -1);
 
         let queryString = 'UPDATE '  + '`' + table + '` SET ' + updateString
-            + ' WHERE ' + identifier_array[0] + ' = "' + identifier_value_array[0] + '" AND ' 
+            + ' WHERE ' + identifier_array[0] + ' = "' + identifier_value_array[0] + '" AND '
             + '`' + identifier_array[1] + '` = "' + identifier_value_array[1] + '";';
         console.log(queryString);
         return await this.executeQuery(queryString);
@@ -115,7 +115,7 @@ class DailyTracker {
     }
 
     async edit(userID, timestamp, stressLevel, anxietyLevel, energyLevel, mood, improvement) { //checks the condition where column uid = userID
-        return await db.editCompositeValues(this.table, ['uid', 'timestamp'], [userID, timestamp], ['stress_lvl', 'anxiety_lvl', 'energy_lvl', 'mood','improvement'], [stressLevel, anxietyLevel, energyLevel, mood, improvement], )
+        return await db.editCompositeValues(this.table, ['uid', 'timestamp'], [userID, timestamp], ['stress_lvl', 'anxiety_lvl', 'energy_lvl', 'mood','improvement'], [stressLevel, anxietyLevel, energyLevel, mood, improvement])
     }
 
     async delete(userID, timestamp) {
