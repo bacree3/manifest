@@ -3,39 +3,45 @@ import { View, Text, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Button from '../../components/Button';
 import axios from 'axios';
-
+import Database from '../../Database';
+import User from '../../User';
 
 export default function Home() {
 
-  const [marketOpen, setMarketOpen] = useState("");
+  const [testQuery, setTestQuery] = useState("");
+  const [userInfo, setUserInfo] = useState("");
 
   const makeDBQuery = async () => {
-    var query = 'https://api.polygon.io/v1/marketstatus/now?apiKey=EepXZYpz1RiHneHcnRHQupa8To6g53Dv'
-    
-    var data;
-
     try {
-        data = await axios.get(query)
-        .then(response => {
-            
-            
-            if (response.data.market == 'closed') {
-                setMarketOpen("false");
-            } else {
-                setMarketOpen("true");
-            }
-            alert(marketOpen);
-        })
+        let db = new Database();
+        let query = db.executeQuery("select * from test;");
+        await query.then(response => {
+            console.log(response.data)
+            setTestQuery(response.data)
+        });
     } catch (error) {
         alert(error)
     }
   }
 
+  const getUserInfo = async () => {
+      try {
+          let user = new User();
+          let userInfo = user.getUserInfo();
+          await userInfo.then(response => {
+              console.log(response.attributes);
+              setUserInfo(response.attributes)
+          })
+      } catch (e) {
+          alert(e)
+      }
+  }
 
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.text}>You are now authenticated</Text>
-      <Button onPress={() => makeDBQuery()}>Check Market Status</Button>
+      <Button onPress={() => makeDBQuery()}>Get Test Query</Button>
+      <Button onPress={() => getUserInfo()}>Get User Info</Button>
     </SafeAreaView>
   )
 }

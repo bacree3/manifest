@@ -4,6 +4,7 @@ from base64 import b64encode
 from requests.structures import CaseInsensitiveDict
 
 query_string = "select * from test;"
+query_string = "insert into test values (2, 'value');"
 
 headers = {
     'query' : query_string,

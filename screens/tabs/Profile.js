@@ -1,15 +1,41 @@
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native'
-import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Button from '../../components/Button'
+import User from '../../User';
+import Auth from '@aws-amplify/auth';
 
 export default function Profile() {
-  return (
-    <SafeAreaView>
-      <Text style={styles.text}>Profile</Text>
-      <Button onPress={() => signOut()}>Sign Out</Button>
-    </SafeAreaView>
-  )
+
+    const [userInfo, setUserInfo] = useState("");
+
+    useEffect(()=>{
+        try {
+            let user = new User();
+            let userInfo = user.getUserInfo();
+            userInfo.then(response => {
+                setUserInfo(response.attributes)
+            })
+        } catch (e) {
+            alert(e)
+        }
+    }, [])
+
+    const signOut = async () => {
+        Auth.signOut().then(response => {
+            console.log("User signed out.");
+            window.location.reload();
+        })
+    }
+
+    return (
+        <SafeAreaView>
+            <Text style={styles.text}>Profile</Text>
+            <Text style={styles.info}>Name: {userInfo.name}</Text>
+            <Text style={styles.info}>Email: {userInfo.email}</Text>
+            <Button style = {styles.button} onPress={() => signOut()}>Sign Out</Button>
+        </SafeAreaView>
+    )
 }
 
 const styles = StyleSheet.create({
@@ -29,4 +55,10 @@ const styles = StyleSheet.create({
     nav: {
         flexDirection: 'row',
     },
+    button: {
+        margin: 20,
+    },
+    info: {
+        textAlign: 'left',
+    }
   });
