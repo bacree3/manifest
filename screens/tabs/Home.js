@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Button from '../../components/Button';
 import axios from 'axios';
-import Database from '../../Database';
+import { Database } from '../../Database';
 import User from '../../User';
 
 export default function Home() {
