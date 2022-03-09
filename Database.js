@@ -1,18 +1,17 @@
 import database_api from './aws-exports';
+import axios from 'axios';
 
 class Database {
     constructor() {
-        this.url = database_api;
+        this.url = "https://ivbz5omkn7.execute-api.us-east-1.amazonaws.com/ManifestRDSGeneric";
     }
 
     async executeQuery(queryString) {
-        const request_options = {
-            'method': 'GET',
+        return axios.get(this.url, {
             'headers': {
                 'query': queryString
             }
-        };
-        return fetch(this.url, request_options);
+        });
     }
 
     async insertValues(table, columns, values) {
@@ -56,7 +55,7 @@ class Database {
         updateString = updateString.slice(0, -1);
 
         let queryString = 'UPDATE '  + '`' + table + '` SET ' + updateString
-            + ' WHERE ' + identifier_array[0] + ' = "' + identifier_value_array[0] + '" AND ' 
+            + ' WHERE ' + identifier_array[0] + ' = "' + identifier_value_array[0] + '" AND '
             + '`' + identifier_array[1] + '` = "' + identifier_value_array[1] + '";';
         console.log(queryString);
         return await this.executeQuery(queryString);
