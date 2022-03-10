@@ -97,8 +97,8 @@ class JournalEntry {
         return this.db.insertValues(this.table, ['uid', 'category', 'title', 'message'], [userID, category, title, message])
     }
 
-    async edit(userID, category, message, timestamp) { //checks the condition where column uid = userID
-        return await this.db.editCompositeValues(this.table, ['uid', 'timestamp'], [userID, timestamp], ['category', 'message'], [category, message])
+    async edit(userID, title, message, timestamp) { //checks the condition where column uid = userID
+        return await this.db.editCompositeValues(this.table, ['uid', 'timestamp'], [userID, timestamp], ['title', 'message'], [title, message])
     }
 
     async delete(userID, timestamp) {

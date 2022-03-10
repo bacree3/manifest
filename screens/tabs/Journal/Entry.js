@@ -3,11 +3,14 @@ import { View, TextInput, Text, StyleSheet, Pressable } from 'react-native';
 import User from '../../../User';
 import { Database, JournalEntry } from '../../../Database';
 
-export default function Journal({navigation}) {
+export default function Entry({route, navigation}) {
     const [title, setTitle] = useState("");
     const [entry, setEntry] = useState("");
+    const [datetime, setDateTime] = useState();
+    const [category, setCategory] = useState("blank");
     const [userInfo, setUserInfo] = useState("");
     const [entries, setEntries] = useState("");
+    const [edit, setEdit] = useState(true)
 
     let journal = new JournalEntry();
 
@@ -18,48 +21,68 @@ export default function Journal({navigation}) {
             userInfo.then(response => {
                 setUserInfo(response.attributes);
             })
+            console.log(route.params)
+            if (route.params !== undefined) {
+              setTitle(route.params.entry.title)
+              setEntry(route.params.entry.message)
+              setDateTime(route.params.entry.datetime)
+              setCategory(route.params.entry.category)
+              setEdit(false)
+            }
         } catch (e) {
             alert(e)
         }
     }, [])
 
-    const [edit, setEdit] = useState(false)
     const editEntry = () => {
       setEdit(!edit)
     }
-    const deleteEntry = () => {
+    const deleteEntry = async () => {
+      await journal.delete(userInfo.sub, datetime).then(response => {
+        console.log("Journal entry was deleted.");
+      })
       setEdit(!edit)
       navigation.navigate('Journal')
     }
     const saveEntry = async () => {
       setEdit(!edit)
-      await journal.add(userInfo.sub, "none", title, entry).then(response => {
+      if (route.params === undefined) {
+        await journal.add(userInfo.sub, category, title, entry).then(response => {
           console.log("Journal entry added.");
-      })
-      navigation.navigate('Journal')
+        })
+      } else {
+        await journal.edit(userInfo.sub, title, entry, datetime).then(response => {
+          console.log("Journal entry was edited.");
+        })
+      }
+      navigation.push('Journal')
     }
     return (
         <View style={styles.container}>
-            <TextInput
-            style={styles.title}
-            onChangeText={(title) => setTitle(title)}
-            value={title}
-            placeholder="Title"
-            multiline
-            />
-            <TextInput
-            style={styles.entry}
-            onChangeText={(entry) => setEntry(entry)}
-            placeholder="Enter Text Here"
-            value={entry}
-            multiline
-            />
             {edit ?
-                <Pressable style={styles.action} onPress={saveEntry}><Text>Save</Text></Pressable> :
+            <View>
+                <TextInput
+                  style={styles.title}
+                  onChangeText={(title) => setTitle(title)}
+                  value={title}
+                  placeholder="Title"
+                  multiline
+                />
+                <TextInput
+                  style={styles.entry}
+                  onChangeText={(entry) => setEntry(entry)}
+                  placeholder="Enter Text Here"
+                  value={entry}
+                  multiline
+                />
+                <Pressable style={styles.action} onPress={saveEntry}><Text>Save</Text></Pressable></View> :
+                <View>
+                <Text style={styles.title}>{title}</Text>
+                <Text style={styles.entry}>{entry}</Text>
                 <View style={styles.actionContainer}>
                     <Pressable style={styles.action} onPress={editEntry}><Text>Edit</Text></Pressable>
                     <Pressable style={styles.delete} onPress={deleteEntry}><Text>Delete</Text></Pressable>
-                </View>
+                </View></View>
             }
         </View>
     )
