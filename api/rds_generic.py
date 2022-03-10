@@ -3,6 +3,7 @@ import logging
 import pymysql
 import os
 import json
+import datetime
 
 #rds settings
 rds_host  = os.environ['RDS_HOST']
@@ -21,6 +22,11 @@ except pymysql.MySQLError as e:
     sys.exit()
 
 logger.info("SUCCESS: Connection to RDS MySQL instance succeeded")
+
+def defaultconverter(o):
+  if isinstance(o, datetime.datetime):
+      return o.__str__()
+
 def lambda_handler(event, context):
     """
     This function fetches content from MySQL RDS instance
@@ -30,10 +36,9 @@ def lambda_handler(event, context):
 
     with conn.cursor() as cur:
         escaped_query = query_string.split(";", 1)
-        logging.info(escaped_query)
+        logging.info(escaped_query[0])
         cur.execute(escaped_query[0])
         results = cur.fetchall()
-        print(results)
     conn.commit()
 
-    return results
+    return json.dumps(results, default=defaultconverter)
