@@ -94,7 +94,7 @@ class JournalEntry {
     }
 
     async add(userID, category, title, message) {
-        return this.db.insertValues(this.table, ['uid', 'category', 'title', 'message'], [userID, category, message])
+        return this.db.insertValues(this.table, ['uid', 'category', 'title', 'message'], [userID, category, title, message])
     }
 
     async edit(userID, category, message, timestamp) { //checks the condition where column uid = userID
