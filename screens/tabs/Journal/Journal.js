@@ -11,7 +11,7 @@ const Stack = createStackNavigator();
 export default function Journal() {
   const navigation = useNavigation();
 
-  const [userInfo, setUserInfo] = useState("");
+  const [userInfo, setUserInfo] = useState();
   const [entries, setEntries] = useState("");
 
   let journal = new JournalEntry();
@@ -20,18 +20,22 @@ export default function Journal() {
       let entries = journal.getAll(userInfo.sub);
       entries.then(response => {
           setEntries(response.data);
+          console.log(response)
       })
   }
 
   useEffect(()=>{
       try {
           let user = new User();
-          let userInfo = user.getUserInfo();
-
-          userInfo.then(response => {
+          user.getUserInfo().then(response => {
               setUserInfo(response.attributes);
+              let db_entries = journal.getAll(response.attributes.sub);
+              db_entries.then(response => {
+                  setEntries(response.data);
+                  console.log(response)
+              })
           })
-          getJournalEntries();
+          // getJournalEntries();
       } catch (e) {
           alert(e)
       }
@@ -90,3 +94,14 @@ const styles = StyleSheet.create({
     marginRight: 20
   }
 });
+
+Journal.getInitialProps = async () => {
+  let user = new User();
+  let userInfo = user.getUserInfo();
+
+  userInfo.then(response => {
+      return response;
+  })
+
+  // return userInfo
+}
