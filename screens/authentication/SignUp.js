@@ -1,27 +1,20 @@
 /* eslint-disable no-console */
 import React, { useState } from 'react';
-import {
-  View, StyleSheet, Text,
-} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Auth from '@aws-amplify/auth';
+import { useNavigation } from '@react-navigation/native';
+import { KeyboardAvoidingView } from 'react-native';
+import { TextInput } from 'react-native-gesture-handler';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    paddingTop: 50,
-  },
-});
 
 export default function SignUp({ navigation }) {
-  const [name, onChangeName] = useState('');
-  const [email, onChangeEmail] = useState('');
-  const [password, onChangePassword] = useState('');
-  const [repeatPassword, onChangeRepeatPassword] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [age, setAge] = useState('');
+  const [password, setPassword] = useState('');
+  const [repeatPassword, setRepeatPassword] = useState('');
 
   const [invalidMessage, setInvalidMessage] = useState(null);
 
@@ -55,43 +48,110 @@ export default function SignUp({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
-      <Input
-        value={name}
-        placeholder="Name"
-        onChange={(text) => onChangeName(text)}
-        autoFocus
-      />
-      <Input
-        value={email}
-        placeholder="email@example.com"
-        onChange={(text) => onChangeEmail(text)}
-        autoCapitalize="none"
-        autoCompleteType="email"
-        keyboardType="email-address"
-      />
-      <Input
-        value={password}
-        placeholder="password"
-        onChange={(text) => onChangePassword(text)}
-        secureTextEntry
-        autoCompleteType="password"
-      />
-      <Input
-        value={repeatPassword}
-        placeholder="Repeat password"
-        onChange={(text) => onChangeRepeatPassword(text)}
-        secureTextEntry
-        autoCompleteType="password"
-      />
-      <Button
-        onPress={() => signUp()}
-      >
-        Sign Up
-      </Button>
-      <Text>
+    <KeyboardAvoidingView style={styles.container} behavior='padding'>
+
+    <View>
+        <Text style={styles.title}>Manifest</Text>
+        <Text style={styles.headerText}>Please fill out all fields below</Text>
+    </View>
+
+    <View style={styles.inputsContainer}>
+        <TextInput placeholder='First Name' value={name} onChangeText={f => setName(f)} style={styles.input} />
+        <TextInput placeholder='Age' value={age} onChangeText={a => setAge(a)} style={styles.input} />
+        <TextInput placeholder='Email' value={email} onChangeText={e => setEmail(e)} style={styles.input} autoCompleteType="email" keyboardType="email-address" autoCapitalize="none"/>
+        <TextInput placeholder='Password' value={password} onChangeText={p => setPassword(p)} style={styles.input} secureTextEntry autoCompleteType="password"/>
+        <TextInput placeholder='Confirm Password' value={repeatPassword} onChangeText={p => setRepeatPassword(p)} style={styles.input} secureTextEntry autoCompleteType="password"/>
+
+    </View>
+    <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.button} onPress={() => signUp()} >
+            <Text style={styles.buttonText}>Register</Text>
+        </TouchableOpacity>
+
+    </View>
+    <Text>
         {invalidMessage}
       </Text>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
+
+const styles = StyleSheet.create({
+
+  container: {
+      flex: 1,
+      backgroundColor: '#fff',
+      alignItems: 'center',
+      justifyContent: 'center',
+  },
+  title: {
+      fontSize: 40,
+      padding: 20,
+      paddingBottom: 140,
+      marginTop: 10,
+      textAlign: 'center',
+      color: '#00ad9b',
+  },
+  headerText: {
+      fontSize: 25,
+      padding: 20,
+      marginTop: 10,
+      textAlign: 'center',
+      color: '#00ad9b',
+  },
+  text: {
+      fontSize: 20,
+      padding: 30,
+      marginTop: 10,
+      textAlign: 'center',
+  },
+  inputsContainer: {
+      width: '80%',
+  },
+  input: {
+      backgroundColor: 'white',
+      paddingHorizontal: 15,
+      paddingVertical: 10,
+      borderRadius: 10,
+      marginBottom: 10,
+      borderColor: '#00ad9b',
+      borderWidth: 1,
+  },
+  buttonContainer: {
+      width: '60%',
+      marginTop: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
+
+
+  },
+  button: {
+      backgroundColor: '#00ad9b',
+      width: '100%',
+      padding: 15,
+      borderRadius: 10,
+      alignItems: 'center',
+  },
+  buttonText: {
+      color: 'white',
+      fontSize: 18,
+      fontWeight: '700',
+
+  },
+  outlinedButton: {
+      backgroundColor: 'white',
+      borderColor: '#00ad9b',
+      borderWidth: 1,
+      marginTop: 60,
+  },
+  buttonOutlinedText: {
+      color: '#00ad9b',
+      fontSize: 18,
+      fontWeight: '700',
+  },
+  darkModeText: {
+      color: 'white',
+
+  },
+  
+});

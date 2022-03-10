@@ -14,11 +14,16 @@ const AuthNavigator = ({ signIn }) => (
     <AuthModalStack.Screen name="AuthPages">
       {() => (
         <AuthStack.Navigator>
-          <AuthStack.Screen options={{ headerShown: false }} name="Welcome" component={WelcomeScreen} />
-          <AuthStack.Screen name="SignUp" component={SignUpScreen} />
-          <AuthStack.Screen name="SignIn">
+
+          <AuthStack.Screen name="Sign In" options={{ headerShown: false }}>
             {({ navigation }) => <SignInScreen signIn={signIn} navigation={navigation} />}
           </AuthStack.Screen>
+
+          <AuthStack.Screen name="Sign Up" >
+            {({ navigation }) => <SignUpScreen navigation={navigation} />}
+          </AuthStack.Screen>
+
+          
           <AuthStack.Screen
             name="ForgetPassword"
             component={ForgetPasswordScreen}
