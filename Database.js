@@ -1,18 +1,18 @@
 import database_api from './aws-exports';
+import axios from 'axios';
+import User from './User';
 
 class Database {
     constructor() {
-        this.url = database_api;
+        this.url = "https://ivbz5omkn7.execute-api.us-east-1.amazonaws.com/ManifestRDSGeneric";
     }
 
     async executeQuery(queryString) {
-        const request_options = {
-            'method': 'GET',
+        return axios.get(this.url, {
             'headers': {
                 'query': queryString
             }
-        };
-        return fetch(this.url, request_options);
+        });
     }
 
     async insertValues(table, columns, values) {
@@ -58,13 +58,13 @@ class Database {
         let queryString = 'UPDATE '  + '`' + table + '` SET ' + updateString
             + ' WHERE ' + identifier_array[0] + ' = "' + identifier_value_array[0] + '" AND '
             + '`' + identifier_array[1] + '` = "' + identifier_value_array[1] + '";';
-        console.log(queryString);
         return await this.executeQuery(queryString);
     }
 
     async readValues(table, identifier, identifier_value) {
         let queryString = 'SELECT * FROM ' + '`' + table + '`' + ' WHERE '
             + identifier + ' = "' + identifier_value + '";';
+        console.log(queryString);
         return await this.executeQuery(queryString);
     }
 
@@ -78,36 +78,39 @@ class Database {
         let queryString = 'DELETE FROM ' + '`' + table + '`' + ' WHERE '
             + identifier_array[0] + ' = "' + identifier_value_array[0] + '" AND '
             + '`' + identifier_array[1] + '` = "' + identifier_value_array[1] + '";';
-        console.log(queryString);
         return await this.executeQuery(queryString);
     }
 }
 
-class Journal {
+class JournalEntry {
 
     constructor() {
-        let db = new Database();
-        let table = 'journal';
+        this.table = 'journal';
+        this.db = new Database();
     }
 
-    async add(userID, category, message, timestamp) {
-        return await db.insertValues(this.table, ['uid', 'category', 'message', 'timestamp'], [userID, category, message, timestamp])
+    async getAll(userID) {
+        return this.db.readValues(this.table, 'uid', userID);
+    }
+
+    async add(userID, category, title, message) {
+        return this.db.insertValues(this.table, ['uid', 'category', 'title', 'message'], [userID, category, message])
     }
 
     async edit(userID, category, message, timestamp) { //checks the condition where column uid = userID
-        return await db.editCompositeValues(this.table, ['uid', 'timestamp'], [userID, timestamp], ['category', 'message'], [category, message])
+        return await this.db.editCompositeValues(this.table, ['uid', 'timestamp'], [userID, timestamp], ['category', 'message'], [category, message])
     }
 
     async delete(userID, timestamp) {
-        return await db.deleteCompositeValues(this.table, ['uid', 'timestamp'], [userID, timestamp])
+        return await this.db.deleteCompositeValues(this.table, ['uid', 'timestamp'], [userID, timestamp])
     }
 }
 
 class DailyTracker {
 
     constructor() {
-        let db = new Database();
-        let table = 'daily_tracker';
+        this.db = new Database();
+        this.table = 'daily_tracker';
     }
 
     async add(userID, timestamp, stressLevel, anxietyLevel, energyLevel, mood, improvement) {
@@ -115,7 +118,7 @@ class DailyTracker {
     }
 
     async edit(userID, timestamp, stressLevel, anxietyLevel, energyLevel, mood, improvement) { //checks the condition where column uid = userID
-        return await db.editCompositeValues(this.table, ['uid', 'timestamp'], [userID, timestamp], ['stress_lvl', 'anxiety_lvl', 'energy_lvl', 'mood','improvement'], [stressLevel, anxietyLevel, energyLevel, mood, improvement])
+        return await db.editCompositeValues(this.table, ['uid', 'timestamp'], [userID, timestamp], ['stress_lvl', 'anxiety_lvl', 'energy_lvl', 'mood','improvement'], [stressLevel, anxietyLevel, energyLevel, mood, improvement], )
     }
 
     async delete(userID, timestamp) {
@@ -126,8 +129,8 @@ class DailyTracker {
 class Community {
 
     constructor() {
-        let db = new Database();
-        let table = 'community';
+        this.db = new Database();
+        this.table = 'community';
     }
 
     async add(groupID, hostUID, memberUIDarray) {
@@ -147,8 +150,8 @@ class Community {
 class Goals {
 
     constructor() {
-        let db = new Database();
-        let table = 'goals';
+        this.db = new Database();
+        this.table = 'goals';
     }
 
     async add(userID, timestamp, category, name, time, freq, notification, progress) {
@@ -163,4 +166,11 @@ class Goals {
         return await db.deleteCompositeValues(this.table, ['uid', 'timestamp'], [userID, timestamp])
     }
 }
-export default Database;
+
+export {
+    Database,
+    JournalEntry,
+    DailyTracker,
+    Community,
+    Goals,
+};

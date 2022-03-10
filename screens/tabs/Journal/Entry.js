@@ -1,9 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, TextInput, Text, StyleSheet, Pressable } from 'react-native';
+import User from '../../../User';
+import { Database, JournalEntry } from '../../../Database';
 
 export default function Journal({navigation}) {
-    const [title, setTitle] = useState("")
-    const [entry, setEntry] = useState("")
+    const [title, setTitle] = useState("");
+    const [entry, setEntry] = useState("");
+    const [userInfo, setUserInfo] = useState("");
+    const [entries, setEntries] = useState("");
+
+    let journal = new JournalEntry();
+
+    useEffect(()=>{
+        try {
+            let user = new User();
+            let userInfo = user.getUserInfo();
+            userInfo.then(response => {
+                setUserInfo(response.attributes);
+            })
+        } catch (e) {
+            alert(e)
+        }
+    }, [])
+
     const [edit, setEdit] = useState(false)
     const editEntry = () => {
       setEdit(!edit)
@@ -12,10 +31,11 @@ export default function Journal({navigation}) {
       setEdit(!edit)
       navigation.navigate('Journal')
     }
-    const saveEntry = () => {
+    const saveEntry = async () => {
       setEdit(!edit)
-      console.log(title)
-      console.log(entry)
+      await journal.add(userInfo.sub, "none", title, entry).then(response => {
+          console.log("Journal entry added.");
+      })
       navigation.navigate('Journal')
     }
     return (
@@ -38,7 +58,7 @@ export default function Journal({navigation}) {
                 <Pressable style={styles.action} onPress={saveEntry}><Text>Save</Text></Pressable> :
                 <View style={styles.actionContainer}>
                     <Pressable style={styles.action} onPress={editEntry}><Text>Edit</Text></Pressable>
-                    <Pressable style={styles.delete} onPress={deleteEntry}><Text>Delete</Text></Pressable> 
+                    <Pressable style={styles.delete} onPress={deleteEntry}><Text>Delete</Text></Pressable>
                 </View>
             }
         </View>
