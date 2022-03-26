@@ -147,23 +147,31 @@ class Community {
 }
 
 
-class Goals {
+class GoalTracker {
 
     constructor() {
         this.db = new Database();
         this.table = 'goals';
     }
 
-    async add(userID, timestamp, category, name, time, freq, notification, progress) {
-        return await db.insertValues(this.table, ['uid', 'timestamp', 'category', 'name', 'time', 'freq', 'notification', 'progress'], [userID, timestamp, category, name, time, freq, notification, progress])
+    async getAll(userID) {
+        return this.db.readValues(this.table, 'uid', userID);
     }
 
-    async edit(userID, timestamp, category, name, time, freq, notification, progress) { //checks the condition where column uid = userID
-        return await db.editCompositeValues(this.table, ['uid', 'timestamp'], [userID, timestamp], ['timestamp', 'category', 'name', 'time', 'freq', 'notification', 'progress'], [timestamp, category, name, time, freq, notification, progress])
+    async add(userID, category, name, time, freq, notification, progress, customHour) {
+        return await this.db.insertValues(this.table, ['uid', 'category', 'name', 'time', 'freq', 'notification', 'progress', 'customHour'], [userID, category, name, time, freq, notification, progress, customHour])
+    }
+
+    async edit(userID, timestamp, category, name, time, freq, notification, progress, customHour) { //checks the condition where column uid = userID
+        return await this.db.editCompositeValues(this.table, ['uid', 'timestamp'], [userID, timestamp], ['category', 'name', 'time', 'freq', 'notification', 'progress', 'customHour'], [category, name, time, freq, notification, progress, customHour])
+    }
+
+    async update(userID, timestamp, progress) { //checks the condition where column uid = userID
+        return await this.db.editCompositeValues(this.table, ['uid', 'timestamp'], [userID, timestamp], ['progress'], [progress])
     }
 
     async delete(userID, timestamp) {
-        return await db.deleteCompositeValues(this.table, ['uid', 'timestamp'], [userID, timestamp])
+        return await this.db.deleteCompositeValues(this.table, ['uid', 'timestamp'], [userID, timestamp])
     }
 }
 
@@ -172,5 +180,5 @@ export {
     JournalEntry,
     DailyTracker,
     Community,
-    Goals,
+    GoalTracker,
 };
