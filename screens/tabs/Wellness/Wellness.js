@@ -6,7 +6,6 @@ import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import CheckIn from './CheckIn';
 import HealthData from './HealthData'
-import Resources from './Resources'
 
 const Stack = createStackNavigator();
 
@@ -21,7 +20,6 @@ export default function Wellness() {
           <View style={styles.navContainer}>
             <Pressable style={styles.nav} onPress={() => navigation.navigate('CheckIn')}><Text>Check In</Text></Pressable>
             <Pressable style={styles.nav} onPress={() => navigation.navigate('HealthData')}><Text>Health Data</Text></Pressable>
-            <Pressable style={styles.nav} onPress={() => navigation.navigate('Resources')}><Text>Resources</Text></Pressable>
           </View>
         </View>
       </SafeAreaView>
@@ -39,7 +37,6 @@ export default function Wellness() {
         <Stack.Screen name="Wellness" options={{headerShown: false}} component={WellnessComponent} />
         <Stack.Screen name="CheckIn" component={CheckIn} />
         <Stack.Screen name="HealthData" component={HealthData} />
-        <Stack.Screen name="Resources" component={Resources} />
     </Stack.Navigator>
   )
 }
