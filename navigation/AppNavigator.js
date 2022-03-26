@@ -12,12 +12,13 @@ import Goals from '../screens/tabs/Goals/Goals';
 
 import {StyleSheet} from 'react-native';
 import React from 'react';
+import Resources from '../screens/tabs/Resources';
 
 const Tab = createMaterialBottomTabNavigator();
 
 function MyTabs() {
     return (
-        <Tab.Navigator initialRouteName="Home" activeColor="#007a74" barStyle={{ backgroundColor: '#BDE3DF' }}>
+        <Tab.Navigator initialRouteName="Home" activeColor="#007a74" barStyle={{ backgroundColor: '#FDFCFC' }}>
             <Tab.Screen name="Home" component={Home}
             options={{
                 tabBarLabel: 'Home',
@@ -42,14 +43,6 @@ function MyTabs() {
                 ),
             }}
             />
-            <Tab.Screen name="Community" component={Connect}
-            options={{
-                tabBarLabel: 'Community',
-                tabBarIcon: ({ color }) => (
-                <MaterialCommunityIcons name="bell" color={color} size={26} />
-                ),
-            }}
-            />
             <Tab.Screen name="Goals" component={Goals}
             options={{
                 tabBarLabel: 'Goals',
@@ -58,11 +51,11 @@ function MyTabs() {
                 ),
             }}
             />
-            <Tab.Screen name="Profile" component={Profile}
+            <Tab.Screen name="Resources" component={Resources}
             options={{
-                tabBarLabel: 'Profile',
+                tabBarLabel: 'Resources',
                 tabBarIcon: ({ color }) => (
-                <MaterialCommunityIcons name="account" color={color} size={26} />
+                <MaterialCommunityIcons name="phone" color={color} size={26} />
                 ),
             }}
             />
