@@ -80,7 +80,6 @@ export default function AddGoal({navigation}) {
                     onChangeText={(hour) => setHour(hour)}
                     value={hour}
                     placeholder="Hour(s)"
-                    multiline
                     keyboardType="numeric"
                 />
                 <TextInput
@@ -136,7 +135,7 @@ const styles = StyleSheet.create({
     fontSize: 23,
     fontWeight: 'bold',
     color: '#4A4A4A',
-    marginTop: 20,
+    marginTop: 50,
     marginBottom: 20
   },
   name: {
@@ -148,7 +147,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     borderRadius: 5,
     textAlign: 'center',
-    padding: 5
+    padding: 10
   },
   unit: {
       marginLeft: 20,
@@ -171,6 +170,8 @@ const styles = StyleSheet.create({
   unitTitle: {
       marginRight: 15,
       fontSize: 16,
+      borderRadius: 5,
+
   },
   unitInput: {
       marginRight: 5,
@@ -202,7 +203,7 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   notify: {
-    backgroundColor: '#D8F0EE',
+    backgroundColor: '#BDE3DF',
     justifyContent: 'center',
     paddingVertical: 10,
     paddingHorizontal: 12,
@@ -226,17 +227,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginLeft: 20,
-    marginTop: 50
+    marginTop: 30
   },
   save: {
     backgroundColor: '#ffffff',
-    paddingVertical: 5,
-    paddingHorizontal: 20,
+    paddingVertical: 8,
+    paddingHorizontal: 30,
     borderRadius: 4,
     marginRight: 5,
   },
-  saveText: {
-    color: '#4A4A4A'
-  }
 });
 

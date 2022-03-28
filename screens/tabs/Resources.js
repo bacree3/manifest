@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     fontSize: 23,
     fontWeight: 'bold',
     color: '#BDE3DF',
-    marginTop: 20,
+    marginTop: 100,
     marginBottom: 20
   },
   message: {

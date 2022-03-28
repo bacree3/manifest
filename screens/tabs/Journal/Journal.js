@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Entry from './Entry'
 import User from '../../../User';
-import { Database, JournalEntry } from '../../../Database';
+import { JournalEntry } from '../../../Database';
 
 const Stack = createStackNavigator();
 const uid = 0;
@@ -53,7 +53,7 @@ export default function Journal() {
         <Pressable style={styles.add} onPress={() => navigation.navigate('Entry')}><Text style={styles.addText}>Add Entry</Text></Pressable>
         {entries.map((entry, i) => (
           <View key={i}>
-          <Pressable style={styles.entry} onPress={() => navigation.navigate('Entry', {entry: entry[0]})}><Text>{entry[0].title}</Text></Pressable>
+          <Pressable style={styles.entry} onPress={() => navigation.navigate('Entry', {entry: entry[0]})}><Text style={styles.entryText}>{entry[0].title}</Text></Pressable>
           </View>
         ))}
       </View>
@@ -61,13 +61,7 @@ export default function Journal() {
   }
 
   return (
-    <Stack.Navigator
-      screenOptions={{
-          headerStyle: {
-            backgroundColor: '#BDE3DF'
-          },
-          headerTintColor: '#fff'
-      }} initialRouteName="Journal">
+    <Stack.Navigator initialRouteName="Journal">
 
         <Stack.Screen name="Journal" options={{headerShown: false}} component={JournalComponent} />
         <Stack.Screen name="Entry" component={Entry} />
@@ -83,37 +77,41 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: 'center',
-    fontSize: 23,
+    fontSize: 25,
     fontWeight: 'bold',
-    color: '#BDE3DF',
-    marginTop: 50,
+    color: '#4A4A4A',
+    marginTop: 100,
     marginBottom: 30
   },
   add: {
-    backgroundColor: '#4A4A4A',
+    borderWidth: 3,
+    borderColor: '#D6DEE5',
     paddingVertical: 8,
     paddingHorizontal: 30,
     borderRadius: 4,
     alignItems: 'center',
     marginRight: 5,
-    marginBottom: 30,
+    marginBottom: 20,
     marginLeft: 20,
     marginRight: 20
   },
   addText: {
-    color: '#ffffff',
-    textAlign: 'left'
+    color: '#4A4A4A',
+    fontWeight: 'bold'
   },
   entry: {
-    backgroundColor: '#BDE3DF',
-    paddingVertical: 8,
+    paddingVertical: 10,
     paddingHorizontal: 30,
     borderRadius: 4,
+    backgroundColor: '#BDE3DF',
     alignItems: 'center',
     marginRight: 5,
-    marginBottom: 5,
+    marginBottom: 10,
     marginLeft: 20,
     marginRight: 20
+  },
+  entryText: {
+    fontSize: 16
   }
 });
 
