@@ -108,8 +108,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 23,
     fontWeight: 'bold',
-    color: '#BDE3DF',
-    marginTop: 20,
+    color: '#4A4A4A',
+    marginTop: 50,
     marginBottom: 20
   },
   sliderTitle: {
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
     marginTop: 50
   },
   save: {
-    backgroundColor: '#BDE3DF',
+    backgroundColor: '#D6DEE5',
     paddingVertical: 8,
     paddingHorizontal: 30,
     borderRadius: 4,

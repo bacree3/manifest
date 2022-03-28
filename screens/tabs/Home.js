@@ -41,8 +41,7 @@ const signOut = async () => {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.title}>
-          <Text style={styles.welcome}>Welcome Back</Text>
-          {/* <Text style={styles.name}>{' ' + userInfo.name}</Text> */}
+          <Text style={styles.welcome}>Welcome Back!</Text>
         </View>
         <Text style={styles.question}>How can we help you?</Text>
         <Pressable style={styles.button} onPress={() => navigation.navigate('Journal')}><Text style={styles.buttonText}>Organize Thoughts</Text></Pressable>
@@ -80,7 +79,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   welcome: {
-    fontSize: 30,
+    fontSize: 40,
     fontWeight: 'bold',
     color: '#4A4A4A',
     marginBottom: 20
@@ -100,18 +99,19 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#BDE3DF',
-    paddingVertical: 8,
+    paddingVertical: 12,
     paddingHorizontal: 30,
     borderRadius: 4,
     alignItems: 'center',
     marginRight: 5,
-    marginBottom: 30,
+    marginBottom: 25,
     marginLeft: 20,
     marginRight: 20,
     width: 300
   },
   buttonText: {
-    color: '#ffffff'
+    color: '#ffffff',
+    fontSize: 16
   },
   nav: {
       flexDirection: 'row',

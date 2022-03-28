@@ -16,7 +16,7 @@ export default function Wellness() {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.container}>
-          <Text style={styles.text}>W E L L N E S S     J O U R N A L</Text>
+          <Text style={styles.text}>W E L L N E S S    J O U R N A L</Text>
           <View style={styles.navContainer}>
             <Pressable style={styles.nav} onPress={() => navigation.navigate('CheckIn')}><Text>Check In</Text></Pressable>
             <Pressable style={styles.nav} onPress={() => navigation.navigate('HealthData')}><Text>Health Data</Text></Pressable>
@@ -26,13 +26,7 @@ export default function Wellness() {
     )
   }
   return (
-    <Stack.Navigator 
-      screenOptions={{
-          headerStyle: {
-            backgroundColor: '#BDE3DF'
-          },
-          headerTintColor: '#fff'
-      }} initialRouteName="Wellness">
+    <Stack.Navigator initialRouteName="Wellness">
 
         <Stack.Screen name="Wellness" options={{headerShown: false}} component={WellnessComponent} />
         <Stack.Screen name="CheckIn" component={CheckIn} />
@@ -49,16 +43,16 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: 23,
     fontWeight: 'bold',
-    color: '#BDE3DF',
+    color: '#4A4A4A',
     marginTop: 50,
     marginBottom: 20
   },
   wellnessNav: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-around'
+    justifyContent: 'space-between'
   },
   navContainer: {
     flexDirection: 'row',

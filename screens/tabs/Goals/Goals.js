@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: 'center',
-    fontSize: 23,
+    fontSize: 25,
     fontWeight: 'bold',
     color: '#4A4A4A',
     marginTop: 50,
@@ -136,7 +136,6 @@ const styles = StyleSheet.create({
   },
   addText: {
     color: '#4A4A4A',
-    textAlign: 'left',
     fontWeight: 'bold',
   },
   sliderTitle: {

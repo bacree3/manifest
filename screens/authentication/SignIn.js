@@ -46,7 +46,7 @@ export default function SignIn({ navigation, signIn: signInCb }) {
     <KeyboardAvoidingView style={styles.container} behavior='padding'>
 
         <View>
-            <Text style={styles.title}>Manifest</Text>
+            <Text style={styles.title}>M A N i F E S T</Text>
         </View>
       
         <View style={styles.inputsContainer}>
@@ -59,9 +59,16 @@ export default function SignIn({ navigation, signIn: signInCb }) {
                 <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>
         </View>
+
         <View style={styles.outlinedButtonContainer}>
             <TouchableOpacity style={[styles.button, styles.outlinedButton]} onPress={() => navigation.navigate('Sign Up')} >
                 <Text style={styles.buttonOutlinedText}>Not Registered? Make an Account Now</Text>
+            </TouchableOpacity>
+        </View>
+
+        <View style={styles.outlinedButtonContainer}>
+            <TouchableOpacity style={styles.password} onPress={() => navigation.navigate('ForgetPassword')} >
+                <Text style={styles.password}>Forgot Password?</Text>
             </TouchableOpacity>
         </View>
     </KeyboardAvoidingView>
@@ -76,7 +83,7 @@ const styles = StyleSheet.create({
 
   container: {
       flex: 1,
-      backgroundColor: '#fff',
+      backgroundColor: '#F8F8F8',
       alignItems: 'center',
       justifyContent: 'center',
   },
@@ -84,52 +91,49 @@ const styles = StyleSheet.create({
       width: '80%',
   },
   title: {
-      fontSize: 40,
-      padding: 20,
-      paddingBottom: 140,
-      marginTop: 10,
-      textAlign: 'center',
-      color: '#00ad9b',
+    fontSize: 40,
+    fontWeight: 'bold',
+    color: '#BDE3DF',
+    marginBottom: 30
   },
   input: {
       backgroundColor: 'white',
       paddingHorizontal: 15,
       paddingVertical: 10,
-      borderRadius: 10,
-      marginBottom: 10,
-      borderColor: '#00ad9b',
+      borderRadius: 5,
+      marginBottom: 15,
+      borderColor: '#ffffff',
       borderWidth: 1,
-
   },
   buttonContainer: {
-      width: '60%',
-      marginTop: 40,
-      alignItems: 'center',
-      justifyContent: 'center',
-
-
+      width: '80%',
+      display: 'flex',
+      marginTop: 10,
   },
   button: {
-      backgroundColor: '#00ad9b',
+      backgroundColor: '#ABE3DD',
       width: '100%',
-      padding: 15,
+      padding: 10,
       borderRadius: 10,
+      borderColor: '#ffffff',
       alignItems: 'center',
   },
   buttonText: {
       color: 'white',
       fontSize: 18,
-      fontWeight: '700',
-
+  },
+  password: {
+    marginTop: 5,
+    color: '#4A4A4A',
   },
   outlinedButton: {
       backgroundColor: 'white',
-      borderColor: '#00ad9b',
+      borderColor: '#ABE3DD',
       borderWidth: 1,
       marginTop: 5,
   },
   buttonOutlinedText: {
-      color: '#00ad9b',
+      color: '#ABE3DD',
       fontSize: 14,
       fontWeight: '700',
   },

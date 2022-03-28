@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View, TextInput, Text, StyleSheet, Pressable } from 'react-native';
+import { View, TextInput, Text, StyleSheet, Pressable, ScrollView } from 'react-native';
 import User from '../../../User';
-import { Database, JournalEntry } from '../../../Database';
+import { JournalEntry } from '../../../Database';
 
 export default function Entry({route, navigation}) {
     const [title, setTitle] = useState("");
@@ -9,7 +9,6 @@ export default function Entry({route, navigation}) {
     const [datetime, setDateTime] = useState();
     const [category, setCategory] = useState("blank");
     const [userInfo, setUserInfo] = useState("");
-    const [entries, setEntries] = useState("");
     const [edit, setEdit] = useState(true)
 
     let journal = new JournalEntry();
@@ -58,9 +57,9 @@ export default function Entry({route, navigation}) {
       navigation.push('Journal')
     }
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             {edit ?
-            <View>
+            <ScrollView>
                 <TextInput
                   style={styles.title}
                   onChangeText={(title) => setTitle(title)}
@@ -75,7 +74,7 @@ export default function Entry({route, navigation}) {
                   value={entry}
                   multiline
                 />
-                <Pressable style={styles.action} onPress={saveEntry}><Text>Save</Text></Pressable></View> :
+                <Pressable style={styles.action} onPress={saveEntry}><Text>Save</Text></Pressable></ScrollView> :
                 <View>
                 <Text style={styles.title}>{title}</Text>
                 <Text style={styles.entry}>{entry}</Text>
@@ -84,7 +83,7 @@ export default function Entry({route, navigation}) {
                     <Pressable style={styles.delete} onPress={deleteEntry}><Text>Delete</Text></Pressable>
                 </View></View>
             }
-        </View>
+        </ScrollView>
     )
 }
 
@@ -102,7 +101,8 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginRight: 20,
     marginBottom: 50,
-    fontSize: 16
+    fontSize: 16,
+    height: 300
   },
   actionContainer: {
       flexDirection: 'row',
