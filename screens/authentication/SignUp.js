@@ -5,14 +5,11 @@ import Auth from '@aws-amplify/auth';
 import { useNavigation } from '@react-navigation/native';
 import { KeyboardAvoidingView } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
-import Button from '../../components/Button';
-import Input from '../../components/Input';
 
 
 export default function SignUp({ navigation }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [age, setAge] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
 
@@ -51,13 +48,12 @@ export default function SignUp({ navigation }) {
     <KeyboardAvoidingView style={styles.container} behavior='padding'>
 
     <View>
-        <Text style={styles.title}>Manifest</Text>
+        <Text style={styles.title}>M A N I F E S T</Text>
         <Text style={styles.headerText}>Please fill out all fields below</Text>
     </View>
 
     <View style={styles.inputsContainer}>
-        <TextInput placeholder='First Name' value={name} onChangeText={f => setName(f)} style={styles.input} />
-        <TextInput placeholder='Age' value={age} onChangeText={a => setAge(a)} style={styles.input} />
+        <TextInput placeholder='Name' value={name} onChangeText={f => setName(f)} style={styles.input} />
         <TextInput placeholder='Email' value={email} onChangeText={e => setEmail(e)} style={styles.input} autoCompleteType="email" keyboardType="email-address" autoCapitalize="none"/>
         <TextInput placeholder='Password' value={password} onChangeText={p => setPassword(p)} style={styles.input} secureTextEntry autoCompleteType="password"/>
         <TextInput placeholder='Confirm Password' value={repeatPassword} onChangeText={p => setRepeatPassword(p)} style={styles.input} secureTextEntry autoCompleteType="password"/>
@@ -79,25 +75,23 @@ export default function SignUp({ navigation }) {
 const styles = StyleSheet.create({
 
   container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
+    flex: 1,
+    backgroundColor: '#F8F8F8',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   title: {
-      fontSize: 40,
-      padding: 20,
-      paddingBottom: 140,
-      marginTop: 10,
-      textAlign: 'center',
-      color: '#00ad9b',
+    fontSize: 40,
+    fontWeight: 'bold',
+    color: '#BDE3DF',
+    marginBottom: 20,
+    textAlign: 'center'
   },
   headerText: {
-      fontSize: 25,
-      padding: 20,
-      marginTop: 10,
+      fontSize: 15,
+      marginBottom: 15,
       textAlign: 'center',
-      color: '#00ad9b',
+      color: '#4A4A4A',
   },
   text: {
       fontSize: 20,
@@ -109,13 +103,13 @@ const styles = StyleSheet.create({
       width: '80%',
   },
   input: {
-      backgroundColor: 'white',
-      paddingHorizontal: 15,
-      paddingVertical: 10,
-      borderRadius: 10,
-      marginBottom: 10,
-      borderColor: '#00ad9b',
-      borderWidth: 1,
+    backgroundColor: 'white',
+    paddingHorizontal: 15,
+    paddingVertical: 15,
+    borderRadius: 5,
+    marginBottom: 15,
+    borderColor: '#ffffff',
+    borderWidth: 1,
   },
   buttonContainer: {
       width: '60%',
@@ -126,7 +120,7 @@ const styles = StyleSheet.create({
 
   },
   button: {
-      backgroundColor: '#00ad9b',
+      backgroundColor: '#ABE3DD',
       width: '100%',
       padding: 15,
       borderRadius: 10,
