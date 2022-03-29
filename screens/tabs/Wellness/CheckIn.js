@@ -1,31 +1,70 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, TextInput, Text, StyleSheet, Pressable, ScrollView } from 'react-native';
 import Slider from '@react-native-community/slider';
+import User from '../../../User';
+import { DailyTracker } from '../../../Database';
 
-export default function CheckIn({navigation}) {
+export default function CheckIn({route, navigation}) {
   const [stressValue, setStressValue] = useState(5);
   const [anxietyValue, setAnxietyValue] = useState(5);
   const [energyValue, setEnergyValue] = useState(5);
-  const [joyful, setJoyful] = useState(false)
-  const [happy, setHappy] = useState(false)
-  const [relaxed, setRelaxed] = useState(false)
-  const [indifferent, setIndifferent] = useState(false)
-  const [confused, setConfused] = useState(false)
-  const [sad, setSad] = useState(false)
-  const [angry, setAngry] = useState(false)
-  const [stress, setStress] = useState(false)
-  const [anxiety, setAnxiety] = useState(false)
-  const [energy, setEnergy] = useState(false)
+  const [joyful, setJoyful] = useState(false);
+  const [happy, setHappy] = useState(false);
+  const [relaxed, setRelaxed] = useState(false);
+  const [indifferent, setIndifferent] = useState(false);
+  const [confused, setConfused] = useState(false);
+  const [sad, setSad] = useState(false);
+  const [angry, setAngry] = useState(false);
+  const [stress, setStress] = useState(false);
+  const [anxiety, setAnxiety] = useState(false);
+  const [energy, setEnergy] = useState(false);
 
-  const save = () => {
-    navigation.navigate('Wellness')
-  }
+  const [userInfo, setUserInfo] = useState("");
+
+  let checkin = new DailyTracker();
+
   const cancel = () => {
     navigation.navigate('Wellness')
   }
 
+  useEffect(()=>{
+      try {
+          let user = new User();
+          let userInfo = user.getUserInfo();
+          userInfo.then(response => {
+              setUserInfo(response.attributes);
+          })
+          console.log(route.params)
+          if (route.params !== undefined) {
+            console.log("params not defined")
+          }
+      } catch (e) {
+          alert(e)
+      }
+  }, [])
+
+  const addEntry = async () => {
+      let mood = {
+          "joyful": joyful,
+          "happy": happy,
+          "relaxed": relaxed,
+          "indifferent": indifferent,
+          "confused": confused,
+          "sad": sad,
+          "angry": angry,
+      }
+      let improvement = {
+          "stress": stress,
+          "anxiety": anxiety,
+          "energy": energy,
+      }
+      if (route.params === undefined) {
+          await checkin.add(userInfo.sub, stressValue, anxietyValue, energyValue, JSON.stringify(mood), JSON.stringify(improvement))
+      }
+  }
+
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Text style={styles.text}>W E L L N E S S     C H E C K - I N</Text>
       <Text style={styles.sliderTitle}>How are you feeling?</Text>
       <View style={styles.sliderContainer}>
@@ -91,10 +130,10 @@ export default function CheckIn({navigation}) {
         <Pressable style={energy ? styles.selected : styles.mood} onPress={() => setEnergy(!energy)}><Text>Low Energy</Text></Pressable>
       </View>
       <View style={styles.saveContainer}>
-        <Pressable style={styles.save} onPress={save}><Text>Save</Text></Pressable>
+        <Pressable style={styles.save} onPress={addEntry}><Text>Save</Text></Pressable>
         <Pressable style={styles.cancel} onPress={cancel}><Text>Cancel</Text></Pressable>
       </View>
-    </View>
+    </ScrollView>
   )
 }
 
@@ -127,7 +166,7 @@ const styles = StyleSheet.create({
     marginRight: 20
   },
   slider: {
-    width: 200, 
+    width: 200,
     height: 40,
     marginLeft: 5,
     marginRight: 5
@@ -194,4 +233,3 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
 });
-

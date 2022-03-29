@@ -110,19 +110,19 @@ class DailyTracker {
 
     constructor() {
         this.db = new Database();
-        this.table = 'daily_tracker';
+        this.table = 'checkin';
     }
 
-    async add(userID, timestamp, stressLevel, anxietyLevel, energyLevel, mood, improvement) {
-        return await db.insertValues(this.table, ['uid', 'timestamp', 'stress_lvl', 'anxiety_lvl', 'energy_lvl', 'mood', 'improvement'], [userID, timestamp, stressLevel, anxietyLevel, energyLevel, mood, improvement])
+    async add(userID, stressLevel, anxietyLevel, energyLevel, mood, improvement) {
+        return await this.db.insertValues(this.table, ['uid', 'stress_lvl', 'anxiety_lvl', 'energy_lvl', 'mood', 'improvement'], [userID, stressLevel, anxietyLevel, energyLevel, mood, improvement])
     }
 
     async edit(userID, timestamp, stressLevel, anxietyLevel, energyLevel, mood, improvement) { //checks the condition where column uid = userID
-        return await db.editCompositeValues(this.table, ['uid', 'timestamp'], [userID, timestamp], ['stress_lvl', 'anxiety_lvl', 'energy_lvl', 'mood','improvement'], [stressLevel, anxietyLevel, energyLevel, mood, improvement], )
+        return await this.db.editCompositeValues(this.table, ['uid', 'timestamp'], [userID, timestamp], ['stress_lvl', 'anxiety_lvl', 'energy_lvl', 'mood','improvement'], [stressLevel, anxietyLevel, energyLevel, mood, improvement], )
     }
 
     async delete(userID, timestamp) {
-        return await db.deleteCompositeValues(this.table, ['uid', 'timestamp'], [userID, timestamp])
+        return await this.db.deleteCompositeValues(this.table, ['uid', 'timestamp'], [userID, timestamp])
     }
 }
 
