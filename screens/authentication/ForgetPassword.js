@@ -44,7 +44,7 @@ function ForgetPassword({ navigation }) {
     Auth.forgotPasswordSubmit(email, code, newPassword)
       .then(() => {
         setErrorMessage('');
-        navigation.navigate('SignIn');
+        navigation.navigate('Sign In');
       })
       .catch((err) => {
         if (err.message) {

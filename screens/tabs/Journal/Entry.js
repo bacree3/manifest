@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, TextInput, Text, StyleSheet, Pressable, ScrollView } from 'react-native';
+import { View, TextInput, Text, StyleSheet, Pressable, ScrollView, KeyboardAvoidingView } from 'react-native';
 import User from '../../../User';
 import { JournalEntry } from '../../../Database';
 
@@ -59,7 +59,7 @@ export default function Entry({route, navigation}) {
     return (
         <ScrollView style={styles.container}>
             {edit ?
-            <ScrollView>
+            <KeyboardAvoidingView behavior='padding'>
                 <TextInput
                   style={styles.title}
                   onChangeText={(title) => setTitle(title)}
@@ -74,7 +74,7 @@ export default function Entry({route, navigation}) {
                   value={entry}
                   multiline
                 />
-                <Pressable style={styles.action} onPress={saveEntry}><Text>Save</Text></Pressable></ScrollView> :
+                <Pressable style={styles.action} onPress={saveEntry}><Text>Save</Text></Pressable></KeyboardAvoidingView> :
                 <View>
                 <Text style={styles.title}>{title}</Text>
                 <Text style={styles.entry}>{entry}</Text>

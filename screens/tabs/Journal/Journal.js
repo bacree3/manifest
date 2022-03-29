@@ -4,7 +4,8 @@ import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Entry from './Entry'
 import User from '../../../User';
-import { JournalEntry } from '../../../Database';
+import { PromptedJournalEntry, JournalEntry } from '../../../Database';
+import PromptedEntry from './PromptedEntry';
 
 const Stack = createStackNavigator();
 const uid = 0;
@@ -12,14 +13,21 @@ const datetime = 1;
 const category = 2;
 const message = 3;
 const title = 4;
+const q1 = 3;
+const q2 = 4;
+const q3 = 5;
+const q4 = 6;
+const q5 = 7;
 
 export default function Journal() {
   const navigation = useNavigation();
 
   const [userInfo, setUserInfo] = useState();
   const [entries, setEntries] = useState([]);
+  const [promptedEntries, setPromptedEntries] = useState([]);
 
   let journal = new JournalEntry();
+  // let prompted_journal = new PromptedJournalEntry();
 
   useEffect(()=>{
       try {
@@ -40,7 +48,24 @@ export default function Journal() {
                 }
                 setEntries(formatted_entries);
               })
-          })
+              // let db_prompted_entries = prompted_journal.getAll(response.attributes.sub);
+              // db_prompted_entries.then(response => {
+              //   let formatted_entries = []
+              //   for(let i = 0; i < response.data.length; i++) {
+              //     formatted_entries.push([{
+              //       uid: response.data[i][uid],
+              //       datetime: response.data[i][datetime],
+              //       title: response.data[i][title],
+              //       q1: response.data[i][q1],
+              //       q2: response.data[i][q2],
+              //       q3: response.data[i][q3],
+              //       q4: response.data[i][q4],
+              //       q5: response.data[i][q5],
+              //     }])
+              //   }
+              //   setPromptedEntries(formatted_entries);
+              // })
+            })
       } catch (e) {
           alert(e)
       }
@@ -50,12 +75,18 @@ export default function Journal() {
     return (
       <View style={styles.container}>
         <Text style={styles.text}>J O U R N A L    E N T R I E S</Text>
-        <Pressable style={styles.add} onPress={() => navigation.navigate('Entry')}><Text style={styles.addText}>Add Entry</Text></Pressable>
+        <Pressable style={styles.add} onPress={() => navigation.navigate('Entry')}><Text style={styles.addText}>Add Blank Entry</Text></Pressable>
         {entries.map((entry, i) => (
           <View key={i}>
           <Pressable style={styles.entry} onPress={() => navigation.navigate('Entry', {entry: entry[0]})}><Text style={styles.entryText}>{entry[0].title}</Text></Pressable>
           </View>
         ))}
+        <Pressable style={styles.add} onPress={() => navigation.navigate('Prompted Entry')}><Text style={styles.addText}>Add Prompted Entry</Text></Pressable>
+        {/* {promptedEntries.map((entry, i) => (
+          <View key={i}>
+          <Pressable style={styles.entry} onPress={() => navigation.navigate('PromptedEntry', {entry: entry[0]})}><Text style={styles.entryText}>{entry[0].title}</Text></Pressable>
+          </View>
+        ))} */}
       </View>
     )
   }
@@ -65,6 +96,7 @@ export default function Journal() {
 
         <Stack.Screen name="Journal" options={{headerShown: false}} component={JournalComponent} />
         <Stack.Screen name="Entry" component={Entry} />
+        <Stack.Screen name="Prompted Entry" component={PromptedEntry} />
     </Stack.Navigator>
   )
 
