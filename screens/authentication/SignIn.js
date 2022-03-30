@@ -50,8 +50,24 @@ export default function SignIn({ navigation, signIn: signInCb }) {
         </View>
 
         <View style={styles.inputsContainer}>
-            <TextInput placeholder='Email' value={email} onChangeText={(email) => setEmail(email)} style={styles.input} />
-            <TextInput placeholder='Password' value={password} onChangeText={(password) => setPassword(password)} style={styles.input} secureTextEntry/>
+            <Input
+                placeholder='Email'
+                value={email}
+                onChange={(email) => setEmail(email)}
+                style={styles.input}
+                autoCompleteType="email"
+                autoCapitalize="none"
+                autoFocus
+                keyboardType="email-address"
+            />
+            <Input
+                placeholder='Password'
+                value={password}
+                onChange={(password) => setPassword(password)}
+                style={styles.input}
+                autoFocus
+                secureTextEntry
+             />
         </View>
         <View style={styles.buttonContainer}>
             <TouchableOpacity style={styles.button} onPress={signIn} >
