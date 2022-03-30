@@ -96,13 +96,13 @@ const styles = StyleSheet.create({
     marginBottom: 30
   },
   input: {
-      //backgroundColor: 'white',
-      //paddingHorizontal: 15,
-      //paddingVertical: 10,
-      //borderRadius: 5,
-      //marginBottom: 15,
-      //borderColor: '#ffffff',
-      //borderWidth: 1,
+      backgroundColor: 'white',
+      paddingHorizontal: 15,
+      paddingVertical: 10,
+      borderRadius: 5,
+      marginBottom: 15,
+      borderColor: '#ffffff',
+      borderWidth: 1,
   },
   buttonContainer: {
       width: '80%',
