@@ -59,8 +59,9 @@ export default function CheckIn({route, navigation}) {
           "energy": energy,
       }
       if (route.params === undefined) {
-          await checkin.add(userInfo.sub, stressValue, anxietyValue, energyValue, JSON.stringify(mood), JSON.stringify(improvement))
+          await checkin.add(userInfo.sub, stressValue, anxietyValue, energyValue, JSON.stringify(mood), JSON.stringify(improvement));
       }
+      navigation.navigate('Wellness')
   }
 
   return (
@@ -223,7 +224,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginLeft: 20,
-    marginTop: 50
+    marginTop: 30,
+    marginBottom: 30
   },
   save: {
     backgroundColor: '#D6DEE5',

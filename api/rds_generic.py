@@ -35,6 +35,7 @@ def lambda_handler(event, context):
     query_string = event['headers']['query']
 
     with conn.cursor() as cur:
+        cur.execute("SET time_zone = 'America/New_York';")
         escaped_query = query_string.split(";", 1)
         logging.info(escaped_query[0])
         cur.execute(escaped_query[0])

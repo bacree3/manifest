@@ -63,8 +63,7 @@ class Database {
 
     async readValues(table, identifier, identifier_value) {
         let queryString = 'SELECT * FROM ' + '`' + table + '`' + ' WHERE '
-            + identifier + ' = "' + identifier_value + '";';
-        console.log(queryString);
+            + identifier + ' = "' + identifier_value + '" ORDER BY timestamp DESC;';
         return await this.executeQuery(queryString);
     }
 
@@ -111,6 +110,10 @@ class DailyTracker {
     constructor() {
         this.db = new Database();
         this.table = 'checkin';
+    }
+
+    async getAll(userID) {
+        return this.db.readValues(this.table, 'uid', userID);
     }
 
     async add(userID, stressLevel, anxietyLevel, energyLevel, mood, improvement) {
