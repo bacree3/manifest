@@ -50,8 +50,8 @@ export default function SignIn({ navigation, signIn: signInCb }) {
         </View>
 
         <View style={styles.inputsContainer}>
-            <TextInput placeholder='Email' value={email} style={styles.input} />
-            <TextInput placeholder='Password' value={password} style={styles.input} secureTextEntry/>
+            <TextInput placeholder='Email' value={email} onChangeText={email => setEmail(email)} />
+            <TextInput placeholder='Password' value={password} onChangeText={password => setPassword(password)} secureTextEntry/>
         </View>
         <View style={styles.buttonContainer}>
             <TouchableOpacity style={styles.button} onPress={signIn} >
@@ -96,13 +96,13 @@ const styles = StyleSheet.create({
     marginBottom: 30
   },
   input: {
-      backgroundColor: 'white',
-      paddingHorizontal: 15,
-      paddingVertical: 10,
-      borderRadius: 5,
-      marginBottom: 15,
-      borderColor: '#ffffff',
-      borderWidth: 1,
+      //backgroundColor: 'white',
+      //paddingHorizontal: 15,
+      //paddingVertical: 10,
+      //borderRadius: 5,
+      //marginBottom: 15,
+      //borderColor: '#ffffff',
+      //borderWidth: 1,
   },
   buttonContainer: {
       width: '80%',
