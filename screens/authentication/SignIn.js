@@ -48,11 +48,10 @@ export default function SignIn({ navigation, signIn: signInCb }) {
         <View>
             <Text style={styles.title}>M A N i F E S T</Text>
         </View>
-      
-        <View style={styles.inputsContainer}>
-            <TextInput placeholder='Email' value={email} onChangeText={e => setEmail(e)} style={styles.input} />
-            <TextInput placeholder='Password' value={password} onChangeText={p => setPassword(p)} style={styles.input} secureTextEntry/>
 
+        <View style={styles.inputsContainer}>
+            <TextInput placeholder='Email' value={email} style={styles.input} />
+            <TextInput placeholder='Password' value={password} style={styles.input} secureTextEntry/>
         </View>
         <View style={styles.buttonContainer}>
             <TouchableOpacity style={styles.button} onPress={signIn} >
@@ -143,5 +142,5 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
   }
-  
+
 });
