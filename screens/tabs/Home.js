@@ -48,13 +48,14 @@ const signOut = async () => {
         <Pressable style={styles.button} onPress={() => navigation.navigate('Goals')}><Text style={styles.buttonText}>Monitor Goals</Text></Pressable>
         <Pressable style={styles.button} onPress={() => navigation.navigate('Health')}><Text style={styles.buttonText}>Assess Mental Health</Text></Pressable>
         <Pressable style={styles.button} onPress={() => navigation.navigate('Talk')}><Text style={styles.buttonText}>Talk to Professionals</Text></Pressable>
+        <Pressable style={styles.button} onPress={() => navigation.navigate('Settings')}><Text style={styles.buttonText}>Settings</Text></Pressable>
         <Pressable style = {styles.logout} onPress={() => signOut()}><Text>Logout</Text></Pressable>
-  
+
       </SafeAreaView>
     )
   }
   return (
-    <Stack.Navigator 
+    <Stack.Navigator
     initialRouteName="Home">
 
        <Stack.Screen name="Home" options={{headerShown: false}} component={HomeComponent} />

@@ -6,8 +6,8 @@ import Home from  '../screens/tabs/Home';
 import Journal from '../screens/tabs/Journal/Journal';
 import Connect from '../screens/tabs/Connect';
 import Wellness from '../screens/tabs/Wellness/Wellness';
-import Profile from '../screens/tabs/Profile';
 import Goals from '../screens/tabs/Goals/Goals';
+import Settings from '../screens/tabs/Settings';
 
 
 import {StyleSheet} from 'react-native';
@@ -56,6 +56,14 @@ function MyTabs() {
                 tabBarLabel: 'Resources',
                 tabBarIcon: ({ color }) => (
                 <MaterialCommunityIcons name="phone" color={color} size={26} />
+                ),
+            }}
+            />
+            <Tab.Screen name="Settings" component={Settings}
+            options={{
+                tabBarLabel: 'Settings',
+                tabBarIcon: ({ color }) => (
+                <MaterialCommunityIcons name="account-settings" color={color} size={26} />
                 ),
             }}
             />
