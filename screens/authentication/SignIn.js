@@ -44,11 +44,9 @@ export default function SignIn({ navigation, signIn: signInCb }) {
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior='padding'>
-
         <View>
             <Text style={styles.title}>M A N i F E S T</Text>
         </View>
-
         <View style={styles.inputsContainer}>
             <Input
                 placeholder='Email'

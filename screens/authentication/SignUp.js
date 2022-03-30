@@ -5,6 +5,7 @@ import Auth from '@aws-amplify/auth';
 import { useNavigation } from '@react-navigation/native';
 import { KeyboardAvoidingView } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
+import Input from '../../components/Input';
 
 
 export default function SignUp({ navigation }) {
@@ -53,10 +54,10 @@ export default function SignUp({ navigation }) {
     </View>
 
     <View style={styles.inputsContainer}>
-        <TextInput placeholder='Name' value={name} onChangeText={f => setName(f)} style={styles.input} />
-        <TextInput placeholder='Email' value={email} onChangeText={e => setEmail(e)} style={styles.input} autoCompleteType="email" keyboardType="email-address" autoCapitalize="none"/>
-        <TextInput placeholder='Password' value={password} onChangeText={p => setPassword(p)} style={styles.input} secureTextEntry autoCompleteType="password"/>
-        <TextInput placeholder='Confirm Password' value={repeatPassword} onChangeText={p => setRepeatPassword(p)} style={styles.input} secureTextEntry autoCompleteType="password"/>
+        <Input placeholder='Name' value={name} onChangeText={f => setName(f)} style={styles.input} />
+        <Input placeholder='Email' value={email} onChangeText={e => setEmail(e)} style={styles.input} autoCompleteType="email" keyboardType="email-address" autoCapitalize="none"/>
+        <Input placeholder='Password' value={password} onChangeText={p => setPassword(p)} style={styles.input} secureTextEntry autoCompleteType="password"/>
+        <Input placeholder='Confirm Password' value={repeatPassword} onChangeText={p => setRepeatPassword(p)} style={styles.input} secureTextEntry autoCompleteType="password"/>
 
     </View>
     <View style={styles.buttonContainer}>
@@ -70,6 +71,10 @@ export default function SignUp({ navigation }) {
       </Text>
     </KeyboardAvoidingView>
   );
+
+  <Stack.Navigator initialRouteName="Journal">
+      <Stack.Screen name="SignIn" options={{headerShown: false}} component={JournalComponent} />
+  </Stack.Navigator>
 }
 
 const styles = StyleSheet.create({
@@ -147,5 +152,5 @@ const styles = StyleSheet.create({
       color: 'white',
 
   },
-  
+
 });

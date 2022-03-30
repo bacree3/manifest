@@ -108,7 +108,7 @@ export default function Journal() {
     const [userInfo, setUserInfo] = useState("");
     const [entries, setEntries] = useState("");
     const [edit, setEdit] = useState(true)
-  
+
     const styles = StyleSheet.create({
       container: {
         flex: 1,
@@ -153,9 +153,9 @@ export default function Journal() {
         justifyContent: 'center'
       },
       });
-  
+
     let journal = new JournalEntry();
-  
+
     useEffect(()=>{
         try {
             let user = new User();
@@ -175,7 +175,7 @@ export default function Journal() {
             alert(e)
         }
     }, [])
-  
+
     const editEntry = () => {
       setEdit(!edit)
     }
@@ -414,7 +414,6 @@ export default function Journal() {
 
   return (
     <Stack.Navigator initialRouteName="Journal">
-
         <Stack.Screen name="Journal" options={{headerShown: false}} component={JournalComponent} />
         <Stack.Screen name="Entry" component={Entry} />
         <Stack.Screen name="Prompted Entry" component={PromptedEntry} />
