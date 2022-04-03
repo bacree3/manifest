@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "578228394221",
+    "project_id": "manifest-19a30",
+    "storage_bucket": "manifest-19a30.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:578228394221:android:48c300e3e34d8896b794e4",
+        "android_client_info": {
+          "package_name": "com.bark.manifest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "578228394221-tiuujhdojtd23o3n4n43nltgtd671ear.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDewQ1WCA1jXQM0_zbU-f_23tdfSc6GlvU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "578228394221-tiuujhdojtd23o3n4n43nltgtd671ear.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
