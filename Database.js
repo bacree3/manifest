@@ -67,6 +67,12 @@ class Database {
         return await this.executeQuery(queryString);
     }
 
+    async readValuesByDate(table, identifier, identifier_value, date) {
+        let queryString = 'SELECT * FROM ' + '`' + table + '`' + ' WHERE '
+            + identifier + ' = "' + identifier_value + '" AND date(timestamp) = "' + date +'" ORDER BY timestamp DESC;';
+        return await this.executeQuery(queryString);
+    }
+
     async deleteValues(table, identifier, identifier_value) {
         let queryString = 'DELETE FROM ' + '`' + table + '`' + ' WHERE '
             + identifier + ' = "' + identifier_value + '";';
@@ -92,12 +98,44 @@ class JournalEntry {
         return this.db.readValues(this.table, 'uid', userID);
     }
 
+    async getByDate(userID, date) {
+        return this.db.readValuesByDate(this.table, 'uid', userID, date);
+    }
+
     async add(userID, category, title, message) {
         return this.db.insertValues(this.table, ['uid', 'category', 'title', 'message'], [userID, category, title, message])
     }
 
     async edit(userID, title, message, timestamp) { //checks the condition where column uid = userID
         return await this.db.editCompositeValues(this.table, ['uid', 'timestamp'], [userID, timestamp], ['title', 'message'], [title, message])
+    }
+
+    async delete(userID, timestamp) {
+        return await this.db.deleteCompositeValues(this.table, ['uid', 'timestamp'], [userID, timestamp])
+    }
+}
+
+class PromptedJournalEntry {
+
+    constructor() {
+        this.table = 'prompted_entries';
+        this.db = new Database();
+    }
+
+    async getAll(userID) {
+        return this.db.readValues(this.table, 'uid', userID);
+    }
+
+    async getByDate(userID, date) {
+        return this.db.readValuesByDate(this.table, 'uid', userID, date);
+    }
+
+    async add(userID, title, q1, q2, q3, q4, q5) {
+        return this.db.insertValues(this.table, ['uid', 'title', 'q1', 'q2', 'q3', 'q4', 'q5'], [userID, title, q1, q2, q3, q4, q5])
+    }
+
+    async edit(userID, title, q1, q2, q3, q4, q5, timestamp) { //checks the condition where column uid = userID
+        return await this.db.editCompositeValues(this.table, ['uid', 'timestamp'], [userID, timestamp], ['title', 'q1', 'q2', 'q3', 'q4', 'q5'], [title, q1, q2, q3, q4, q5])
     }
 
     async delete(userID, timestamp) {
@@ -181,6 +219,7 @@ class GoalTracker {
 export {
     Database,
     JournalEntry,
+    PromptedJournalEntry,
     DailyTracker,
     Community,
     GoalTracker,
