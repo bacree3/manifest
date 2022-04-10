@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Pressable, TextInput } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { View, Text, StyleSheet, Pressable, TextInput, ScrollView, TouchableOpacity } from 'react-native';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Slider from '@react-native-community/slider';
@@ -24,7 +23,6 @@ export default function Goals() {
   const [userInfo, setUserInfo] = useState("")
   const [stored_goals, setGoals] = useState([])
   const navigation = useNavigation()
-  const [render, setRender] = useState(false)
 
   let Goal = new GoalTracker()
 
@@ -50,7 +48,6 @@ export default function Goals() {
                 progress: response.data[i][progress]
               }])
             }
-            console.log(formatted_goals)
             setGoals(formatted_goals)
           })
       })
@@ -68,34 +65,41 @@ export default function Goals() {
     }, [])
   );
 
-  const updateValue = async (update, index) => {
+  const updateStoredValue = async (update, index) => {
     const duplicate = stored_goals.slice()
     duplicate[index][0].progress = update
     setGoals(duplicate)
+    if (update === (stored_goals[index][0].time === 0 ? stored_goals[index][0].frequency : stored_goals[index][0].time)) {
+      await Goal.delete(userInfo.sub, stored_goals[index][0].datetime).then(response => {
+        console.log(stored_goals)
+      })
+    }
     await Goal.update(userInfo.sub, stored_goals[index][0].datetime, stored_goals[index][0].progress).then(response => {
-      setRender(true)
+      console.log(stored_goals)
     })
+    loadEntries()
+
   }
 
   const GoalsComponent = () => {
     return (
-      <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.container}>
         <View style={styles.container}>
           <Text style={styles.text}>G O A L     T R A C K E R</Text>
           <Pressable style={styles.add} onPress={() => navigation.navigate('Create Goal')}><Text style={styles.addText}>Add Goal</Text></Pressable>
           {stored_goals.map((goal, i) => (
           <View style={styles.sliderContainer} key={i}>
-            <View style = {styles.sliderTextContainer}>
+            <TouchableOpacity style = {styles.sliderTextContainer} onPress={() => navigation.navigate('Create Goal', {goal: goal[0]})}>
               <Text style={styles.name}>{goal[0].name}</Text>
               <Text>{goal[0].progress} / {goal[0].time === 0 ? goal[0].frequency + ' time(s)' : goal[0].time + ' minute(s)'}</Text>
-            </View>
+            </TouchableOpacity>
             <Slider
               style={styles.slider}
               minimumValue={0}
               maximumValue={goal[0].time === 0 ? goal[0].frequency : goal[0].time}
               step={1}
               value={goal[0].progress}
-              onValueChange={(goalValue) => updateValue(goalValue, i)}
+              onSlidingComplete={(goalValue) => updateStoredValue(goalValue, i)}
               minimumTrackTintColor="#BDE3DF"
               maximumTrackTintColor="#000000"
             />
@@ -103,11 +107,11 @@ export default function Goals() {
           ))}
 
         </View>
-      </SafeAreaView>
+      </ScrollView>
     )
   }
 
-  function AddGoal({navigation}) {
+  function AddGoal({route, navigation}) {
     const [userInfo, setUserInfo] = useState("");
     const [name, setName] = useState("")
     const [hour, setHour] = useState(0)
@@ -117,7 +121,10 @@ export default function Goals() {
     const [daily, setDaily] = useState(false)
     const [custom, setCustom] = useState(false)
     const [customHour, setCustomHour] = useState(0)
+    const [progress, setProgress] = useState(0)
     const [category, setCategory] = useState("")
+    const [edit, setEdit] = useState(true)
+    const [datetime, setDateTime] = useState();
 
     const styles = StyleSheet.create({
       container: {
@@ -129,13 +136,13 @@ export default function Goals() {
         fontSize: 23,
         fontWeight: 'bold',
         color: '#4A4A4A',
-        marginTop: 50,
-        marginBottom: 20
+        marginTop: 30,
+        marginBottom: 15
       },
       name: {
         marginLeft: 20,
         marginRight: 20,
-        marginBottom: 30,
+        marginBottom: 20,
         fontSize: 16,
         textAlign: 'center',
         backgroundColor: '#ffffff',
@@ -157,7 +164,6 @@ export default function Goals() {
           width: 120
       },
       unitContainer: {
-        flexDirection: 'row',
         marginLeft: 20,
         alignContent: 'center'
       },
@@ -165,11 +171,16 @@ export default function Goals() {
           marginRight: 15,
           fontSize: 16,
           borderRadius: 5,
+          fontWeight: 'bold',
     
+      },
+      unitDescription: {
+        fontSize: 12
       },
       unitInput: {
           marginRight: 5,
           marginBottom: 5,
+          marginTop: 8,
           width: 60,
           fontSize: 16,
           backgroundColor: '#ffffff',
@@ -177,10 +188,17 @@ export default function Goals() {
           textAlign: 'center',
           height: 30
       },
+      timeContainer: {
+        flexDirection: 'row',
+        alignItems: 'center'
+      },
+      time: {
+        marginRight: 8
+      },
       notifyTitle: {
         marginLeft: 20,
         marginBottom: 8,
-        marginTop: 20,
+        marginTop: 15,
         fontSize: 16,
         fontWeight: 'bold',
         backgroundColor: '#D6DEE5',
@@ -197,7 +215,7 @@ export default function Goals() {
         margin: 5,
       },
       notify: {
-        backgroundColor: '#BDE3DF',
+        backgroundColor: '#ffffff',
         justifyContent: 'center',
         paddingVertical: 10,
         paddingHorizontal: 12,
@@ -216,20 +234,29 @@ export default function Goals() {
           width: 100,
           textAlign: 'center'
       },
-      saveContainer: {
-        display: 'flex',
+      actionContainer: {
         flexDirection: 'row',
-        alignItems: 'center',
-        marginLeft: 20,
-        marginTop: 30
+        justifyContent: 'space-between',
+        marginTop: 20
       },
-      save: {
+      action: {
+        backgroundColor: '#BDE3DF',
+        paddingVertical: 8,
+        paddingHorizontal: 30,
+        borderRadius: 4,
+        alignItems: 'center',
+        marginBottom: 50,
+        marginLeft: 20,
+        marginRight: 20
+      },
+      delete: {
         backgroundColor: '#ffffff',
         paddingVertical: 8,
         paddingHorizontal: 30,
         borderRadius: 4,
-        marginRight: 5,
-      },
+        marginRight: 20,
+        marginBottom: 50
+      }
     });
     
     let goal = new GoalTracker()
@@ -241,26 +268,31 @@ export default function Goals() {
           userInfo.then(response => {
               setUserInfo(response.attributes);
           })
-          // console.log(route.params)
-          // if (route.params !== undefined) {
-          //   setCategory(route.params.entry.category)
-            // setName(route.params.entry.name)
-            // setHour(route.params.entry.hour)
-            // setMinute(route.params.entry.minute)
-            // setFrequency(route.params.entry.frequency)
-            // setHourly(route.params.entry.hourly)
-            // setDaily(route.params.entry.daily)
-            // setCustom(route.params.entry.custom)
-            // setCustomHour(route.params.entry.custom)
-            // setEdit(false)
-          // }
+          console.log(route.params)
+          if (route.params !== undefined) {
+            setCategory(route.params.goal.category)
+            setName(route.params.goal.name)
+            setHour(Math.floor(route.params.goal.time / 60))
+            setMinute(route.params.goal.time % 60)
+            setFrequency(route.params.goal.frequency)
+            setHourly(route.params.goal.hourly)
+            setDaily(route.params.goal.daily)
+            setCustom(route.params.goal.custom)
+            setCustomHour(route.params.goal.custom)
+            setProgress(route.params.goal.progress)
+            setEdit(false)
+            setDateTime(route.params.goal.datetime)
+          }
       } catch (e) {
           alert(e)
       }
   }, [])
 
     const save = async () => {
-      let time = (hour * 60) + minute
+      console.log(hour)
+      console.log(minute)
+      let time = (Number(hour) * 60) + Number(minute)
+      console.log(time)
       let notification = 'none'
       if (hourly)
         notification = 'hourly'
@@ -268,15 +300,24 @@ export default function Goals() {
         notification = 'daily'
       else if (custom)
         notification = 'customHour'
-      
-      await goal.add(userInfo.sub, 'Test', name, time, frequency, notification, 0, customHour).then(response => {
-        console.log(response)
-      })
+      if (route.params === undefined) {
+        await goal.add(userInfo.sub, 'Test', name, time, frequency, notification, progress, customHour).then(response => {
+          console.log(response)
+        })
+      } else {
+        await goal.edit(userInfo.sub, datetime, 'Test', name, time, frequency, notification, progress, customHour).then(response => {
+          console.log(response)
+        })
+      }
       loadEntries()
       navigation.push('Goals')
     }
-    const cancel = () => {
-      navigation.push('Goals')
+    const deleteEntry = async () => {
+      await goal.delete(userInfo.sub, datetime).then(response => {
+        console.log("Goal was deleted.");
+      })
+      loadEntries()
+      navigation.navigate('Goals')
     }
 
     return (
@@ -291,23 +332,29 @@ export default function Goals() {
             <Text style={styles.unit}>Units (Pick 1)</Text>
             <View style={styles.unitContainer}>
                 <Text style={styles.unitTitle}>Time</Text>
-                <TextInput
-                    style={styles.unitInput}
-                    onChangeText={(hour) => setHour(hour)}
-                    value={hour}
-                    placeholder="Hour(s)"
-                    keyboardType="numeric"
-                />
-                <TextInput
-                    style={styles.unitInput}
-                    onChangeText={(minute) => setMinute(minute)}
-                    value={minute}
-                    placeholder="Minutes"
-                    keyboardType="numeric"
-                />
+                <Text style={styles.unitDescription}>Enter the number of hours/minutes to set aside for this goal (ex. Go on a walk for 30 minutes)</Text>
+                <View style={styles.timeContainer}>
+                  <TextInput
+                      style={styles.unitInput}
+                      onChangeText={(hour) => setHour(hour)}
+                      value={hour}
+                      placeholder="Hour(s)"
+                      keyboardType="numeric"
+                  />
+                  <Text style={styles.time}>Hour(s)</Text>
+                  <TextInput
+                      style={styles.unitInput}
+                      onChangeText={(minute) => setMinute(minute)}
+                      value={minute}
+                      placeholder="Minutes"
+                      keyboardType="numeric"
+                  />
+                  <Text style={styles.time}>Minute(s)</Text>
+                </View>
             </View>
             <View style={styles.unitContainer}>
                 <Text style={styles.unitTitle}>Frequency</Text>
+                <Text style={styles.unitDescription}>Enter the number of times you want to accomplish this goal (ex. Meditate 5 times a day)</Text>
                 <TextInput
                     style={styles.unitInput}
                     onChangeText={(frequency) => setFrequency(frequency)}
@@ -331,10 +378,9 @@ export default function Goals() {
                         /> : <></>
                 }
             </View>
-   
-            <View style={styles.saveContainer}>
-                <Pressable style={styles.save} onPress={save}><Text style={styles.saveText}>Save</Text></Pressable>
-                <Pressable style={styles.cancel} onPress={cancel}><Text>Cancel</Text></Pressable>
+            <View style={styles.actionContainer}>
+              <Pressable style={styles.action} onPress={save}><Text style={styles.saveText}>Save</Text></Pressable>
+              {route.params !== undefined ? <Pressable style={styles.delete} onPress={deleteEntry}><Text>Delete</Text></Pressable>: <></>}
             </View>
         </View>
     )
