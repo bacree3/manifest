@@ -69,7 +69,7 @@ export default function CheckIn({route, navigation}) {
       <Text style={styles.text}>W E L L N E S S     C H E C K - I N</Text>
       <Text style={styles.sliderTitle}>How are you feeling?</Text>
       <View style={styles.sliderContainer}>
-        <Text>Stress Level</Text>
+        <Text>Current Stress</Text>
         <Slider
           style={styles.slider}
           minimumValue={0}
@@ -83,7 +83,7 @@ export default function CheckIn({route, navigation}) {
         <Text>({stressValue})</Text>
       </View>
       <View style={styles.sliderContainer}>
-        <Text>Anxiety Level</Text>
+        <Text>Overall Anxiety</Text>
         <Slider
           style={styles.slider}
           minimumValue={0}
@@ -121,7 +121,7 @@ export default function CheckIn({route, navigation}) {
         <View style={styles.moodContainerBottom}>
           <Pressable style={confused ? styles.selected : styles.mood} onPress={() => setConfused(!confused)}><Text>Confused</Text></Pressable>
           <Pressable style={sad ? styles.selected : styles.mood} onPress={() => setSad(!sad)}><Text>Sad</Text></Pressable>
-          <Pressable style={angry ? styles.selected : styles.mood} onPress={() => setAngry(!angry)}><Text>Angry</Text></Pressable>
+          <Pressable style={angry ? styles.selected : styles.mood} onPress={() => setAngry(!angry)}><Text>Irritable</Text></Pressable>
         </View>
       </View>
       <Text style={styles.helpTitle}>What can we help you with?</Text>
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     fontSize: 23,
     fontWeight: 'bold',
     color: '#4A4A4A',
-    marginTop: 50,
+    marginTop: 30,
     marginBottom: 20
   },
   sliderTitle: {
