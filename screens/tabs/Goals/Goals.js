@@ -337,7 +337,7 @@ export default function Goals() {
                   <TextInput
                       style={styles.unitInput}
                       onChangeText={(hour) => setHour(hour)}
-                      value={hour}
+                      value={hour.toString()}
                       placeholder="Hour(s)"
                       keyboardType="numeric"
                   />
@@ -345,7 +345,7 @@ export default function Goals() {
                   <TextInput
                       style={styles.unitInput}
                       onChangeText={(minute) => setMinute(minute)}
-                      value={minute}
+                      value={minute.toString()}
                       placeholder="Minutes"
                       keyboardType="numeric"
                   />
