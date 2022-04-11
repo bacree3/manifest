@@ -9,6 +9,7 @@ npm-debug.*
 *.orig.*
 api/api_test.py
 web-build/
+google-services.json
 
 # macOS
 .DS_Store
