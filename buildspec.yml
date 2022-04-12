@@ -6,6 +6,7 @@ phases:
   pre_build:
     commands:
       - 'aws s3 cp s3://manifest-environment-variables/aws-exports.js aws-exports.js'
+      - 'aws s3 cp s3://manifest-environment-variables/google-services.json google-services.json'
       - npm install --silent --global expo-cli
       - npm install
   build:
