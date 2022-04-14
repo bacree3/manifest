@@ -154,6 +154,10 @@ class DailyTracker {
         return this.db.readValues(this.table, 'uid', userID);
     }
 
+    async getByDate(userID, date) {
+        return this.db.readValuesByDate(this.table, 'uid', userID, date);
+    }
+
     async add(userID, stressLevel, anxietyLevel, energyLevel, mood, improvement) {
         return await this.db.insertValues(this.table, ['uid', 'stress_lvl', 'anxiety_lvl', 'energy_lvl', 'mood', 'improvement'], [userID, stressLevel, anxietyLevel, energyLevel, mood, improvement])
     }

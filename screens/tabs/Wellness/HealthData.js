@@ -29,7 +29,7 @@ function formatAMPM(date) {
 
 console.log(formatAMPM(new Date));
 
-function HealthData() {
+function HealthData({route}) {
     const navigation = useNavigation();
 
     const [userInfo, setUserInfo] = useState();
@@ -42,11 +42,11 @@ function HealthData() {
             let user = new User();
             user.getUserInfo().then(response =>{
                 setUserInfo(response.attributes);
-                let db_entries = checkin.getAll(response.attributes.sub);
+                let db_entries = checkin.getByDate(response.attributes.sub, route.params.dateSelected);
                 db_entries.then(response => {
                     let formatted_entries = [];
                     for (let i = 0; i < response.data.length; i++) {
-                        console.log(response.data[i][1])
+                        console.log(response.data[i])
                         let moodObject = JSON.parse(response.data[i][mood]);
                         let improvementObject = JSON.parse(response.data[i][improvement]);
                         let moodString = "";
@@ -116,6 +116,7 @@ function HealthData() {
           </ScrollView>
       )
     }
+
     return (
       <Stack.Navigator initialRouteName="">
           <Stack.Screen name="HealthData" options={{headerShown: false}} component={HealthDataComponent} />
@@ -130,11 +131,11 @@ const styles = StyleSheet.create({
     },
     text: {
       textAlign: 'center',
-      fontSize: 20,
+      fontSize: 25,
       fontWeight: 'bold',
-      color: 'black',
-      marginTop: 20,
-      marginBottom: 20
+      color: '#4A4A4A',
+      marginTop: 50,
+      marginBottom: 30
     },
     nav: {
         flexDirection: 'row',
@@ -152,7 +153,7 @@ const styles = StyleSheet.create({
     },
     entryText: {
         color: 'white',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
     }
   });
 

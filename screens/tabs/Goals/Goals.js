@@ -372,7 +372,7 @@ export default function Goals() {
                     <TextInput
                         style={styles.customTime}
                         onChangeText={(custom) => setCustomHour(custom)}
-                        value={customHour}
+                        value={customHour.toString()}
                         placeholder="Every - Hours"
                         keyboardType="numeric"
                         /> : <></>

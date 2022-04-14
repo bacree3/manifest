@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   mood: {
-    backgroundColor: '#BDE3DF',
+    backgroundColor: '#ffffff',
     justifyContent: 'center',
     paddingVertical: 10,
     paddingHorizontal: 12,
@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
     marginRight: 5
   },
   selected: {
-    backgroundColor: '#82BDB7',
+    backgroundColor: '#B0D7D3',
     justifyContent: 'center',
     paddingVertical: 10,
     paddingHorizontal: 12,
@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
     marginBottom: 30
   },
   save: {
-    backgroundColor: '#D6DEE5',
+    backgroundColor: '#BDE3DF',
     paddingVertical: 8,
     paddingHorizontal: 30,
     borderRadius: 4,
