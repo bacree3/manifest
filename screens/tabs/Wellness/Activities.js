@@ -7,34 +7,28 @@ export default function Activities() {
             <Text style={styles.text}>S  U G G E S T E D   A C T I V I T I E S</Text>
             <Text style={styles.header}>General Tips</Text>
             <View style={styles.listContainer}>
-                <ul>
-                    <li>Drink plenty of water</li>
-                    <li>Eat well</li>
-                    <li>Prioritize sleep</li>
-                    <li>Exercise regularly (even a short walk counts!)</li>
-                </ul>
+            <Text>Drink plenty of water</Text>
+            <Text>Eat well</Text>
+            <Text>Prioritize sleep</Text>
+            <Text>Exercise regularly (even a short walk counts!)</Text>
             </View>
 
             <Text style={styles.header}>Stress/Anxiety</Text>
             <View style={styles.listContainer}>
-                <ul>
-                    <li>Take a Hot/Cold Shower to relieve senses</li>
-                    <li>Meditate to help refocus the mind</li>
-                    <li>Practice breathing excerises to calm the mind and body</li>
-                    <li>Journal your thoughts to help clear your mind</li>
-                    <li>Talk to friends and family (Share your checkin!)</li>
-                    <li>Set goals for what you want to accomplish and schedule a time for working on them</li>
-                </ul>
+            <Text>Take a Hot/Cold Shower to relieve senses</Text>
+            <Text>Meditate to help refocus the mind</Text>
+            <Text>Practice breathing excerises to calm the mind and body</Text>
+            <Text>Journal your thoughts to help clear your mind</Text>
+            <Text>Talk to friends and family (Share your checkin!)</Text>
+            <Text>Set goals for what you want to accomplish and schedule a time for working on them</Text>
             </View>
 
             <Text style={styles.header}>Low Energy</Text>
             <View style={styles.listContainer}>
-                <ul>
-                    <li>Eat a nutritious meal/snack</li>
-                    <li>Take a power nap (15-20 minutes)</li>
-                    <li>Go on a quick walk or engage in light physical excerise</li>
-                    <li>Take a Yoga break</li>
-                </ul>
+            <Text>Eat a nutritious meal/snack</Text>
+            <Text>Take a power nap (15-20 minutes)</Text>
+            <Text>Go on a quick walk or engage in light physical excerise</Text>
+            <Text>Take a Yoga break</Text>
             </View>
 
 
@@ -63,6 +57,9 @@ const styles = StyleSheet.create({
         color: '#B0D7D3',
     },
     listContainer: {
-        marginRight: 15
+        marginRight: 15,
+        marginLeft: 20,
+        marginTop: 8,
+        marginBottom: 10
     }
   });
