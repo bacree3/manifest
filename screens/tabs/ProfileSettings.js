@@ -3,37 +3,74 @@ import { View, TextInput, Text, StyleSheet, Pressable, ScrollView } from 'react-
 import Slider from '@react-native-community/slider';
 import User from '../../User';
 import { UserSettings } from '../../Database';
+import { PromptedJournalEntry, JournalEntry } from '../../Database';
 
 export default function ProfileSettings({route, navigation}) {
-    const [invitations, setInvitations] = useState("");
-    const [friends, setFriends] = useState("");
+    const [invitations, setInvitations] = useState([]);
+    const [friends, setFriends] = useState([]);
     const [userInfo, setUserInfo] = useState("");
     const [userSettings, setUserSettings] = useState("");
 
     let user_data = new UserSettings();
 
-  useEffect(()=>{
+    let journal = new JournalEntry();
+
+    function loadSettings() {
       try {
+        let user = new User();
+        let dates = {}
+        user.getUserInfo().then(response => {
+            setUserInfo(response.attributes);
+            user_data.getUserSettings(response.attributes.sub).then(response => {
+                setUserSettings(response.data);
+                if (response.data.length == 0) {
+                    console.log("empty, adding user to settings db")
+                    user_data.addNewUser(response.attributes.sub)
+                }
+            });
+        })
+
+        } catch (e) {
+            alert(e)
+        }
+    }
+
+    function loadFriends() {
+        try {
           let user = new User();
+          let dates = {}
           user.getUserInfo().then(response => {
               setUserInfo(response.attributes);
-              let test = user_data.getUserSettings(response.attributes.sub);
+              user_data.getUserSettings(response.attributes.sub).then(response => {
+                  setUserSettings(response.data);
+                  let test = JSON.parse(response.data[0][4]).replace(/'/g, '"');
+                  test = JSON.parse(test);
+                  let formatted_friends = [];
+                  for (let i = 0; i < test.length; i++) {
+                      formatted_friends.push([{
+                          friend: test[i]
+                      }])
+                  }
+                  console.log(formatted_friends)
+                  setFriends(formatted_friends);
+              });
           })
-          console.log(route.params)
-          if (route.params !== undefined) {
-            console.log("params not defined")
-          }
-          checkUserSettings();
-      } catch (e) {
-          alert(e)
-      }
-  }, [])
 
-  const checkUserSettings = async () => {
-      console.log(userInfo)
-  }
+          } catch (e) {
+              alert(e)
+          }
+    }
+
+    useEffect(()=>{
+        loadSettings();
+        loadFriends();
+    }, [])
 
   const sendRequest = async () => {
+
+  }
+
+  const updateFriends = async () => {
 
   }
 
@@ -50,7 +87,18 @@ export default function ProfileSettings({route, navigation}) {
             />
           </View>
           <View >
-            <Pressable style={styles.add}><Text>Add Friend</Text></Pressable>
+            <Pressable style={styles.add} onPress={sendRequest}><Text>Add Friend</Text></Pressable>
+          </View>
+          <View>
+            <Text style={styles.bodyText}>View Friends Sharing Permissions</Text>
+            {friends.map((friend, i) => (
+              <View key={i}>
+              <Text style={styles.entryText}>{friend[0].friend}</Text>
+              </View>
+            ))}
+          </View>
+          <View>
+            <Pressable style={styles.add} onPress={updateFriends}><Text>Save Changes</Text></Pressable>
           </View>
         </View>
       </ScrollView>

@@ -73,8 +73,8 @@ export default function Journal() {
     return (
       <View style={styles.container}>
         <Text style={styles.text}>J O U R N A L    E N T R I E S</Text>
-        <Calendar 
-          onDayPress={(date) => navigation.navigate('Daily Entry', {dateSelected: date.dateString})} 
+        <Calendar
+          onDayPress={(date) => navigation.navigate('Daily Entry', {dateSelected: date.dateString})}
           markedDates={markedDates}
           hideArrows={false}
           theme={{
@@ -98,7 +98,7 @@ export default function Journal() {
     const [userInfo, setUserInfo] = useState();
     const [entries, setEntries] = useState([]);
     const [promptedEntries, setPromptedEntries] = useState([]);
-  
+
     let journal = new JournalEntry();
     let prompted_journal = new PromptedJournalEntry();
 
@@ -147,7 +147,7 @@ export default function Journal() {
         fontSize: 16
       }
     });
-  
+
     function loadEntriesByDate() {
       try {
         let user = new User();
@@ -189,11 +189,11 @@ export default function Journal() {
         alert(e)
     }
   }
-  
+
     useEffect(()=>{
         loadEntriesByDate();
     }, [])
-  
+
     useFocusEffect(
       React.useCallback(() => {
         loadEntriesByDate();

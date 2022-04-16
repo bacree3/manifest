@@ -228,22 +228,21 @@ class GoalTracker {
 }
 
 class UserSettings {
-    constructor(userID) {
+    constructor() {
         this.db = new Database();
         this.table = 'user_settings';
-        this.userID = userID;
     }
 
     async addNewUser(userID) {
-        return this.db.insertValues(this.table, ['uid'], this.userID);
+        return this.db.insertValues(this.table, ['uid'], [userID]);
     }
 
-    async getUserSettings() {
-        return this.db.getSingleValue(this.table, 'uid', this.userID)
+    async getUserSettings(userID) {
+        return this.db.getSingleValue(this.table, 'uid', userID)
     }
 
     async updateUserSettings(userID, min_stress, min_energy, min_anxiety, max_stress, max_energy, max_anxiety) {
-        return this.db.editValues(this.table, 'uid', this.userID, ['min_stress', 'min_energy', 'min_anxiety', 'max_stress', 'max_energy', 'max_anxiety'], [min_stress, min_energy, min_anxiety, max_stress, max_energy, max_anxiety]);
+        return this.db.editValues(this.table, 'uid', userID, ['min_stress', 'min_energy', 'min_anxiety', 'max_stress', 'max_energy', 'max_anxiety'], [min_stress, min_energy, min_anxiety, max_stress, max_energy, max_anxiety]);
     }
 
     async acceptFriendInvitation(userID, friendID) {
