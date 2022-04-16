@@ -1,5 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, Linking } from 'react-native';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import RecResourceCard from '../../components/RecResourceCard';
 
 const styles = StyleSheet.create({
   container: {
@@ -8,23 +11,34 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: 'center',
-    fontSize: 23,
+    fontSize: 25,
     fontWeight: 'bold',
-    color: '#BDE3DF',
-    marginTop: 30,
-    marginBottom: 20
+    color: '#4A4A4A',
+    marginTop: 50,
+    marginBottom: 30,
   },
   message: {
       textAlign: 'center',
       marginLeft: 20,
-      marginRight: 20
+      marginRight: 20,
+      marginBottom: 20,
+      color: '#a84900',
+      borderWidth: 5,
+      fontSize: 20,
+      borderColor: '#a84900',
+      borderRadius: 10,
+      padding: 10,
   },
   header: {
-      fontSize: 16,
+      fontSize: 18,
       fontWeight: 'bold',
       marginTop: 8,
       marginBottom: 8,
-      marginLeft: 20
+      marginLeft: 20,
+      color: '#4A4A4A',
+      paddingLeft: 70,
+      paddingBottom: 10,
+
   },
   online: {
       marginLeft: 20,
@@ -43,21 +57,55 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 50
   },
+  resourceCategory: {
+    borderWidth: 5,
+    borderColor: '#BDE3DF',
+    borderRadius: 10,
+    padding: 10,
+    marginLeft: 20,
+    marginRight: 20,
+    marginBottom: 20,
+    marginTop: 20,
+    backgroundColor: '#BDE3DF'
+  },
+
 });
 
 export default function Resources() {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+
+    <ScrollView style={{ height: "100%" }}>
       <Text style={styles.text}>O T H E R     R E S O U R C E S</Text>
       <Text style={styles.message}>This app does NOT replace therapy, medication, or other forms of treatment. Please stay informed about what is right for you.</Text>
       <Text style={styles.message}>If this is a life-thretening emergency, please call 911</Text>
+
+      <Text style={styles.header}>Recommended Resources</Text>
+
+      <ScrollView style=
+          {{
+              flexDirection: "row",
+              padding: 20,
+              paddingLeft: 12,
+              paddingTop: 10
+          }}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}>
+          <TouchableOpacity onPress={() => Linking.openURL('https://livesafe.gatech.edu')}>
+            <RecResourceCard image={require('../../assets/livesafe_sm.jpg')} title="GT LifeSafe" caption="Direct access to GTPD resources" subtitle='Download App for free' logo={require('../../assets/gt-logo.png')}/>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => Linking.openURL('https://www.headspace.com/')}>
+            <RecResourceCard image={require('../../assets/headspace.png')} title="Headspace" caption="Meditation for alleviating stress" subtitle='Download App for free' logo={require('../../assets/headspacelogo.jpg')}/>
+          </TouchableOpacity>
+      </ScrollView>
       
-      <Text style={styles.header}>Numbers to Call</Text>
-      <View style={styles.orgContainer}>
-        <Text style={styles.org}>GTPD: </Text>
-        <Text onPress={() => Linking.openURL(`tel:${4048942500}`)}>404-894-2500</Text>
-      </View>
-      <View style={styles.orgContainer}>
+      <View style={styles.resourceCategory}>
+        <Text style={styles.header}>Numbers to Call</Text>
+        <View style={styles.orgContainer}>
+          <Text style={styles.org}>GTPD: </Text>
+          <Text onPress={() => Linking.openURL(`tel:${4048942500}`)}>404-894-2500</Text>
+        </View>
+        <View style={styles.orgContainer}>
         <Text style={styles.org}>GT CARE: </Text>
         <Text onPress={() => Linking.openURL(`tel:${4048943498}`)}>404-894-3498</Text>
       </View>
@@ -89,15 +137,16 @@ export default function Resources() {
         <Text style={styles.org}>GT Counseling Center: </Text>
         <Text onPress={() => Linking.openURL(`tel:${4048942575}`)}>404-894-2575</Text>
       </View>
+      </View>
 
-      <Text style={styles.header}>Recommended Resources</Text>
-      <Text style={styles.online} onPress={() => Linking.openURL('https://livesafe.gatech.edu')}>GT LiveSafe</Text>
-      <Text style={styles.online} onPress={() => Linking.openURL('https://www.headspace.com')}>Headspace</Text>
+      
+
+      
 
       <Text style={styles.header}>Further Online Resources</Text>
       <Text style={styles.online} onPress={() => Linking.openURL('https://www.apa.org/topics/crisis-hotlines')}>Crisis Hotlines and Resources</Text>
       <Text style={styles.online} onPress={() => Linking.openURL('https://www.samhsa.gov/find-help/national-helpline')}>SAMHSA</Text>
-      
-    </View>
+      </ScrollView>
+    </SafeAreaView>
   )
 }
