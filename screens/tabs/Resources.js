@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       marginLeft: 20,
       marginRight: 20,
-      marginBottom: 20,
+      marginBottom: 10,
       color: '#a84900',
       borderWidth: 5,
       fontSize: 20,
@@ -32,12 +32,10 @@ const styles = StyleSheet.create({
   header: {
       fontSize: 18,
       fontWeight: 'bold',
-      marginTop: 8,
-      marginBottom: 8,
+      marginTop: 20,
       marginLeft: 20,
       color: '#4A4A4A',
       paddingLeft: 70,
-      paddingBottom: 10,
 
   },
   online: {
@@ -46,6 +44,10 @@ const styles = StyleSheet.create({
   },
   orgContainer: {
     flexDirection: 'row',
+    marginLeft: 20,
+    marginBottom: 4
+  },
+  longOrgContainer: {
     marginLeft: 20,
     marginBottom: 4
   },
@@ -91,11 +93,19 @@ export default function Resources() {
           }}
               horizontal={true}
               showsHorizontalScrollIndicator={false}>
+
+
           <TouchableOpacity onPress={() => Linking.openURL('https://livesafe.gatech.edu')}>
-            <RecResourceCard image={require('../../assets/livesafe_sm.jpg')} title="GT LifeSafe" caption="Direct access to GTPD resources" subtitle='Download App for free' logo={require('../../assets/gt-logo.png')}/>
+            <RecResourceCard image={require('../../assets/livesafe_sm.jpg')} title="GT LiveSafe" caption="Direct access to GTPD resources" subtitle='Download App for free' logo={require('../../assets/gt-logo.png')}/>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => Linking.openURL('https://www.headspace.com/')}>
             <RecResourceCard image={require('../../assets/headspace.png')} title="Headspace" caption="Meditation for alleviating stress" subtitle='Download App for free' logo={require('../../assets/headspacelogo.jpg')}/>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => Linking.openURL('https://www.apa.org/topics/crisis-hotlines')}>
+            <RecResourceCard image={require('../../assets/apa-cover.png')} title="Crisis Hotlines" caption="Several hotlines & related resources" subtitle='Visit for free resources' logo={require('../../assets/apa-logo.png')}/>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => Linking.openURL('https://www.samhsa.gov/find-help/national-helpline')}>
+            <RecResourceCard image={require('../../assets/samhsa-cover.png')} title="SAMHSA" caption="Get help today with the national hotline" subtitle='Visit for free resources' logo={require('../../assets/samhsa-logo.png')}/>
           </TouchableOpacity>
       </ScrollView>
       
@@ -117,7 +127,7 @@ export default function Resources() {
         <Text style={styles.org}>Stamps Health Services: </Text>
         <Text onPress={() => Linking.openURL(`tel:${4048941420}`)}>404-894-1420</Text>
       </View>
-      <View style={styles.orgContainer}>
+      <View style={styles.longOrgContainer}>
         <Text style={styles.org}>Office of the VP and Dean of Students: </Text>
         <Text onPress={() => Linking.openURL(`tel:${4048946367}`)}>404-894-6367</Text>
       </View>
@@ -125,7 +135,7 @@ export default function Resources() {
         <Text style={styles.org}>Victim-Survivor Advocate: </Text>
         <Text onPress={() => Linking.openURL(`tel:${4043854464}`)}>404-385-4464</Text>
       </View>
-      <View style={styles.orgContainer}>
+      <View style={styles.longOrgContainer}>
         <Text style={styles.org}>National Suicide Prevention Lifeline: </Text>
         <Text onPress={() => Linking.openURL(`tel:${18002738255}`)}>1-800-273-8255</Text>
       </View>
@@ -143,9 +153,7 @@ export default function Resources() {
 
       
 
-      <Text style={styles.header}>Further Online Resources</Text>
-      <Text style={styles.online} onPress={() => Linking.openURL('https://www.apa.org/topics/crisis-hotlines')}>Crisis Hotlines and Resources</Text>
-      <Text style={styles.online} onPress={() => Linking.openURL('https://www.samhsa.gov/find-help/national-helpline')}>SAMHSA</Text>
+      
       </ScrollView>
     </SafeAreaView>
   )

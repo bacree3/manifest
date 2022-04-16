@@ -4,19 +4,20 @@ import styled from "styled-components";
 
 const RecResourceCard = (props) => {
   return (
-    <Container style={{ elevation: 10 }}>
+      <Container style={{ elevation: 10 }}>
     <Cover>
       <Image source={props.image} />
-      <Title>{props.title}</Title>
+
     </Cover>
     <Content>
       <Logo source={props.logo} />
       <Wrapper>
-        <Caption>{props.caption}</Caption>
+        <Caption>{props.title}</Caption>
         <Subtitle>{props.subtitle.toUpperCase()}</Subtitle>
       </Wrapper>
     </Content>
   </Container>
+    
   )
 }
 
@@ -84,4 +85,7 @@ const Title = styled.Text`
   margin-top: 20px;
   margin-left: 20px;
   width: 170px;
+  padding: 10px;
+  border-radius: 5px;
+  
 `;
