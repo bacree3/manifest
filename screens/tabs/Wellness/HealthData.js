@@ -52,7 +52,11 @@ function HealthData({route}) {
                         let moodString = "";
                         let improvementString = "";
 
-                        let timestamp = new Date(response.data[i][1]);
+                        let date = response.data[i][1];
+                        let t = date.split(/[- :]/);
+                        var d = new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5]);
+                        let timestamp = new Date(d);
+
                         timestamp.toLocaleString('en-US', { timeZone: 'America/New_York' });
                         console.log(timestamp);
                         let timeString = weekday[timestamp.getDay()]

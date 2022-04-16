@@ -47,7 +47,7 @@ export default function Settings() {
       userInfo.then(response => {
           setUserInfo(response.attributes);
       })
-    
+
       registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
 
       // This listener is fired whenever a notification is received while the app is foregrounded
@@ -59,7 +59,7 @@ export default function Settings() {
       responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
         console.log(response);
       });
-    
+
       return () => {
         Notifications.removeNotificationSubscription(notificationListener.current);
         Notifications.removeNotificationSubscription(responseListener.current);
@@ -79,23 +79,23 @@ export default function Settings() {
   const setNotificationTime = () => {
     //console.log(Number(hour) + ":" + Number(minute) + " " + checked);
     setNotificationMin(Number(minute));
-    if (checked == "am") {   
+    if (checked == "am") {
       if (Number(hour) == 12) {
-        setNotificationHr(0);   
+        setNotificationHr(0);
       } else { //not 12am
-        setNotificationHr(Number(hour)); 
-      }    
+        setNotificationHr(Number(hour));
+      }
     } else {
       if (Number(hour) == 12) {
         setNotificationHr(12);
       } else { //not 12pm
         let notificationHr = Number(hour) + 12
-        setNotificationHr(notificationHr); 
+        setNotificationHr(notificationHr);
       }
     }
-    
+
   }
-  
+
   if (notificationsEnabled) {
     Notifications.cancelAllScheduledNotificationsAsync();
     console.log("Send at " + notificationHr + ":" + notificationMin);
@@ -108,10 +108,10 @@ export default function Settings() {
     });
 
     Notifications.scheduleNotificationAsync({
-      content: { 
-          title: 'Reminder: Update Manifest!' 
-      }, 
-      trigger: { 
+      content: {
+          title: 'Reminder: Update Manifest!'
+      },
+      trigger: {
           hour: notificationHr, minute: notificationMin, repeats: true
       }
     })
@@ -171,7 +171,7 @@ export default function Settings() {
                     onPress={() => setChecked('pm')}
                   />
                   <Text style={{marginTop: 7}}> PM </Text>
-                  
+
                 </View>
                 <View>
                     <Pressable style={styles.save}  onPress={setNotificationTime}><Text>Save</Text></Pressable>

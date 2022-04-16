@@ -8,6 +8,7 @@ class Database {
     }
 
     async executeQuery(queryString) {
+        console.log(queryString)
         return axios.get(this.url, {
             'headers': {
                 'query': queryString
@@ -64,6 +65,12 @@ class Database {
     async readValues(table, identifier, identifier_value) {
         let queryString = 'SELECT * FROM ' + '`' + table + '`' + ' WHERE '
             + identifier + ' = "' + identifier_value + '" ORDER BY timestamp DESC;';
+        return await this.executeQuery(queryString);
+    }
+
+    async getSingleValue(table, identifier, identifier_value) {
+        let queryString = 'SELECT * FROM ' + '`' + table + '`' + ' WHERE '
+            + identifier + ' = "' + identifier_value + '";';
         return await this.executeQuery(queryString);
     }
 
@@ -220,6 +227,35 @@ class GoalTracker {
     }
 }
 
+class UserSettings {
+    constructor(userID) {
+        this.db = new Database();
+        this.table = 'user_settings';
+        this.userID = userID;
+    }
+
+    async addNewUser(userID) {
+        return this.db.insertValues(this.table, ['uid'], this.userID);
+    }
+
+    async getUserSettings() {
+        return this.db.getSingleValue(this.table, 'uid', this.userID)
+    }
+
+    async updateUserSettings(userID, min_stress, min_energy, min_anxiety, max_stress, max_energy, max_anxiety) {
+        return this.db.editValues(this.table, 'uid', this.userID, ['min_stress', 'min_energy', 'min_anxiety', 'max_stress', 'max_energy', 'max_anxiety'], [min_stress, min_energy, min_anxiety, max_stress, max_energy, max_anxiety]);
+    }
+
+    async acceptFriendInvitation(userID, friendID) {
+
+    }
+
+    async updateFriendPermissions(userID, friendID) {
+
+    }
+
+}
+
 export {
     Database,
     JournalEntry,
@@ -227,4 +263,5 @@ export {
     DailyTracker,
     Community,
     GoalTracker,
+    UserSettings
 };

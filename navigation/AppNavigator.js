@@ -8,6 +8,7 @@ import Connect from '../screens/tabs/Connect';
 import Wellness from '../screens/tabs/Wellness/Wellness';
 import Goals from '../screens/tabs/Goals/Goals';
 import Settings from '../screens/tabs/Settings';
+import ProfileSettings from '../screens/tabs/ProfileSettings';
 
 
 import {StyleSheet} from 'react-native';
@@ -59,7 +60,7 @@ function MyTabs() {
                 ),
             }}
             />
-            <Tab.Screen name="Settings" component={Settings}
+            <Tab.Screen name="Settings" component={ProfileSettings}
             options={{
                 tabBarLabel: 'Settings',
                 tabBarIcon: ({ color }) => (
