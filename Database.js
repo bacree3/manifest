@@ -38,7 +38,7 @@ class Database {
     async editValues(table, identifier, identifier_value, columns, values) {
         let updateString = '';
         columns.forEach((item, i) => {
-            updateString += item + ' = "' + values[i] + '",';
+            updateString += item + " = '" + values[i] + "',";
         });
         // remove extra comma
         updateString = updateString.slice(0, -1);
@@ -245,7 +245,11 @@ class UserSettings {
         return this.db.editValues(this.table, 'uid', userID, ['min_stress', 'min_energy', 'min_anxiety', 'max_stress', 'max_energy', 'max_anxiety'], [min_stress, min_energy, min_anxiety, max_stress, max_energy, max_anxiety]);
     }
 
-    async acceptFriendInvitation(userID, friendID) {
+    async addFriendRequest(userID, updatedRequests) {
+        return this.db.editValues(this.table, 'uid', userID, ['pending_invitations'], [updatedRequests]);
+    }
+
+    async acceptFriendRequest(userID, friendID) {
 
     }
 

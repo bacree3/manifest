@@ -6,10 +6,10 @@ import { UserSettings } from '../../Database';
 import { PromptedJournalEntry, JournalEntry } from '../../Database';
 
 export default function ProfileSettings({route, navigation}) {
-    const [invitations, setInvitations] = useState([]);
     const [friends, setFriends] = useState([]);
     const [userInfo, setUserInfo] = useState("");
     const [userSettings, setUserSettings] = useState("");
+    const [requestEmail, setRequestEmail] = useState("");
 
     let user_data = new UserSettings();
 
@@ -43,19 +43,18 @@ export default function ProfileSettings({route, navigation}) {
               setUserInfo(response.attributes);
               user_data.getUserSettings(response.attributes.sub).then(response => {
                   setUserSettings(response.data);
-                  let test = JSON.parse(response.data[0][4]).replace(/'/g, '"');
-                  test = JSON.parse(test);
+                  //let test = JSON.parse(response.data[0][4]).replace(/'/g, '"');
+                  //test = JSON.parse(test);
                   let formatted_friends = [];
-                  for (let i = 0; i < test.length; i++) {
+                  /*for (let i = 0; i < test.length; i++) {
                       formatted_friends.push([{
                           friend: test[i]
                       }])
-                  }
+                  }*/
                   console.log(formatted_friends)
                   setFriends(formatted_friends);
               });
           })
-
           } catch (e) {
               alert(e)
           }
@@ -67,7 +66,35 @@ export default function ProfileSettings({route, navigation}) {
     }, [])
 
   const sendRequest = async () => {
-
+      try {
+        let user = new User();
+        let dates = {}
+        user.getUserInfo().then(response => {
+            setUserInfo(response.attributes);
+            user_data.getUserSettings(response.attributes.sub).then(response => {
+                setUserSettings(response.data);
+                let originalRequests = response.data[0][5];
+                let updatedRequests = [];
+                if (originalRequests == null) {
+                    console.log("no current invitations")
+                    updatedRequests.push(requestEmail);
+                } else {
+                    console.log("appending to list")
+                    updatedRequests = JSON.parse(response.data[0][5])
+                    updatedRequests.push(requestEmail);
+                }
+                console.log(updatedRequests)
+                updatedRequests = JSON.stringify(updatedRequests);
+                console.log(updatedRequests)
+                user_data.addFriendRequest(userInfo.sub, updatedRequests).then(response => {
+                  console.log(response);
+                  console.log("Requests updated.");
+                })
+            });
+        })
+        } catch (e) {
+            alert(e)
+        }
   }
 
   const updateFriends = async () => {
@@ -84,6 +111,8 @@ export default function ProfileSettings({route, navigation}) {
               style={styles.input}
               placeholder="Enter Email Address"
               keyboardType="email-address"
+              value = {requestEmail}
+              onChangeText={(requestEmail) => setRequestEmail(requestEmail)}
             />
           </View>
           <View >
