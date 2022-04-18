@@ -5,6 +5,7 @@ import SignInScreen from '../screens/authentication/SignIn';
 import SignUpScreen from '../screens/authentication/SignUp';
 import ForgetPasswordScreen from '../screens/authentication/ForgetPassword';
 import Confirmation from '../screens/authentication/Confirmation';
+import Subscription from '../screens/authentication/Subscription';
 
 const AuthStack = createStackNavigator();
 const AuthModalStack = createStackNavigator();
@@ -28,6 +29,7 @@ const AuthNavigator = ({ signIn }) => (
             name="ForgetPassword"
             component={ForgetPasswordScreen}
           />
+          <AuthStack.Screen  options={{ headerShown: false }} name="Subscription" component={Subscription} />
         </AuthStack.Navigator>
       )}
     </AuthModalStack.Screen>
