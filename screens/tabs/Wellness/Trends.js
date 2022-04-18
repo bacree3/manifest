@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Dimensions, Platform } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
-// import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, CartesianGrid, ResponsiveContainer } from "recharts";
-// import { LineChart, Grid } from 'react-native-svg-charts';
 import Victory from '../../../components/Victory';
 import User from '../../../User';
 import { DailyTracker } from '../../../Database';
