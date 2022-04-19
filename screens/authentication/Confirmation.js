@@ -38,7 +38,7 @@ const Confirmation = ({ route, navigation }) => {
     if (authCode.length > 0) {
       await Auth.confirmSignUp(email, authCode)
         .then(() => {
-          navigation.navigate('Sign In');
+          navigation.navigate('Subscription');
         })
         .catch((err) => {
           if (!err.message) {

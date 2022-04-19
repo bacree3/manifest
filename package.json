@@ -31,11 +31,12 @@
     "react-native-reanimated": "~2.3.1",
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.10.1",
+    "react-native-svg": "^12.3.0",
     "react-native-vector-icons": "^9.1.0",
     "react-native-web": "0.17.1",
-    "recharts": "^2.1.9",
     "styled-components": "^5.3.5",
-    "util": "^0.12.4"
+    "util": "^0.12.4",
+    "victory-native": "^36.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
