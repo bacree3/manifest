@@ -13,7 +13,6 @@ export default function ProfileSettings({route, navigation}) {
     const [requestEmail, setRequestEmail] = useState("");
 
     let user_data = new UserSettings();
-    let journal = new JournalEntry();
 
     useEffect(()=>{
         try {
@@ -131,8 +130,12 @@ export default function ProfileSettings({route, navigation}) {
     }
   }
 
-  const updateFriends = async () => {
+  const acceptFriendRequest = () => {
+      // todo
+  }
 
+  const denyFriendRequest = () => {
+      // todo
   }
 
   return (

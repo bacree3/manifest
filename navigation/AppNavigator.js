@@ -60,7 +60,7 @@ function MyTabs() {
                 ),
             }}
             />
-            <Tab.Screen name="Settings" component={ProfileSettings}
+            <Tab.Screen name="Settings" component={Settings}
             options={{
                 tabBarLabel: 'Settings',
                 tabBarIcon: ({ color }) => (
