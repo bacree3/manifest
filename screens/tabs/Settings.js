@@ -241,11 +241,10 @@ const denyFriendRequest = () => {
   const SettingsComponent = () => {
     return (
       <ScrollView style={styles.container}>
-      <View style = {styles.center}>
-        <View style={styles.title}>
-          <Text style={styles.welcome}>P R O F I L E   S E T T I N G S</Text>
-        </View>
-        </View>
+        <View style = {styles.center}>
+            <View style={styles.title}>
+              <Text style={styles.welcome}>P R O F I L E   S E T T I N G S</Text>
+            </View>
         <View style = {styles.option}>
             <Text style = {styles.toggleText}>Daily Notifications</Text>
             <Switch
@@ -308,6 +307,7 @@ const denyFriendRequest = () => {
                 value={shareEnabled}
             />
         </View>
+      </View>
     <View style = {styles.container}>
         <View>
           <Text style={styles.bodyText}>Add Friends (Enter Email) </Text>
@@ -402,7 +402,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#F8F8F8',
         margin: 10,
-        //alignItems: 'center'
+        alignItems: 'center'
     },
     bodyText: {
       display: 'flex',
