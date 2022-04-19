@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, DevSettings } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Button from '../../components/Button'
 import User from '../../User';
@@ -24,7 +24,7 @@ export default function Profile() {
     const signOut = async () => {
         Auth.signOut().then(response => {
             console.log("User signed out.");
-            window.location.reload();
+            DevSettings.reload();
         })
     }
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, TextInput, StyleSheet, Pressable, Switch, Platform, Keyboard } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Pressable, Switch, Platform, Keyboard, DevSettings } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -72,7 +72,7 @@ export default function Settings() {
   const signOut = async () => {
     Auth.signOut().then(response => {
         console.log("User signed out.");
-        window.location.reload();
+        DevSettings.reload();
     })
   }
 

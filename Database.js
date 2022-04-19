@@ -233,12 +233,16 @@ class UserSettings {
         this.table = 'user_settings';
     }
 
-    async addNewUser(userID) {
-        return this.db.insertValues(this.table, ['uid'], [userID]);
+    async addNewUser(userID, user_email) {
+        return this.db.insertValues(this.table, ['uid', 'email'], [userID, user_email]);
     }
 
     async getUserSettings(userID) {
-        return this.db.getSingleValue(this.table, 'uid', userID)
+        return this.db.getSingleValue(this.table, 'uid', userID);
+    }
+
+    async getFriendID(user_email) {
+        return this.db.getSingleValue(this.table, 'email', user_email);
     }
 
     async updateUserSettings(userID, min_stress, min_energy, min_anxiety, max_stress, max_energy, max_anxiety) {
@@ -249,8 +253,12 @@ class UserSettings {
         return this.db.editValues(this.table, 'uid', userID, ['pending_invitations'], [updatedRequests]);
     }
 
-    async acceptFriendRequest(userID, friendID) {
+    async removeFriendRequest(userID, updatedRequests) {
+        return this.db.editValues(this.table, 'uid', userID, ['pending_invitations'], [updatedRequests]);
+    }
 
+    async addFriend(userID, updatedFriends) {
+        return this.db.editValues(this.table, 'uid', userID, ['friends'], [updateFriends])
     }
 
     async updateFriendPermissions(userID, friendID) {

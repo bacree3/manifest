@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { View, Text, StyleSheet, Pressable, DevSettings} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack'
@@ -33,7 +33,7 @@ export default function Home() {
 const signOut = async () => {
   Auth.signOut().then(response => {
       console.log("User signed out.");
-      window.location.reload();
+      DevSettings.reload();
   })
 }
 
