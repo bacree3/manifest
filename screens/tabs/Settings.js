@@ -107,13 +107,17 @@ export default function Settings() {
                   //let test = JSON.parse(response.data[0][4]).replace(/'/g, '"');
                   let raw_data = JSON.parse(response.data[0][5]);
                   let formatted_friends = [];
-                  for (let i = 0; i < raw_data.length; i++) {
-                    formatted_friends.push([{
-                        friend: raw_data[i]
-                    }])
+                  if (raw_data == null || raw_data == []) {
+                      setFriends(["You currently don't have any friends. Add some now!"])
+                  } else {
+                      for (let i = 0; i < raw_data.length; i++) {
+                        formatted_friends.push([{
+                            friend: raw_data[i]
+                        }])
+                      }
+                      console.log(formatted_friends);
+                      setFriends(formatted_friends);
                   }
-                  console.log(formatted_friends)
-                  setFriends(formatted_friends);
                   console.log("set friends");
               });
           });
@@ -131,13 +135,17 @@ export default function Settings() {
                   console.log("formatting friend requests");
                   let raw_data = JSON.parse(response.data[0][6]);
                   let formatted_requests = [];
-                  for (let i = 0; i < raw_data.length; i++) {
-                    formatted_requests.push([{
-                        friend: raw_data[i]
-                    }])
+                  if (raw_data == null || raw_data == []) {
+                      setFriendRequests(["You currently don't have any friend requests."]);
+                  } else {
+                      for (let i = 0; i < raw_data.length; i++) {
+                        formatted_requests.push([{
+                            friend: raw_data[i]
+                        }])
+                      }
+                      console.log(formatted_requests)
+                      setFriendRequests(formatted_requests);
                   }
-                  console.log(formatted_requests)
-                  setFriendRequests(formatted_requests);
                   console.log("set friend requests");
               });
           });
@@ -311,11 +319,10 @@ const denyFriendRequest = () => {
         <View>
           <Text style={styles.bodyText}>Add Friends (Enter Email) </Text>
           <TextInput
-            style={styles.input}
-            placeholder="Enter Email Address"
-            keyboardType="email-address"
-            value = {requestEmail}
-            onChangeText={(requestEmail) => setRequestEmail(requestEmail)}
+              style={styles.input}
+              onChangeText={(requestEmail) => setRequestEmail(requestEmail)}
+              value={requestEmail}
+              placeholder="example@manifest.com"
           />
         </View>
         <View >
