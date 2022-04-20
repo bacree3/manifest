@@ -13,6 +13,7 @@ const datetime = 1;
 const category = 2;
 const message = 3;
 const title = 4;
+const promp_title = 2;
 const q1 = 3;
 const q2 = 4;
 const q3 = 5;
@@ -174,7 +175,7 @@ export default function Journal() {
                 formatted_entries.push([{
                   uid: response.data[i][uid],
                   datetime: response.data[i][datetime],
-                  title: response.data[i][title],
+                  title: response.data[i][promp_title],
                   q1: response.data[i][q1],
                   q2: response.data[i][q2],
                   q3: response.data[i][q3],
@@ -307,7 +308,6 @@ export default function Journal() {
       setEdit(!edit)
       if (route.params === undefined) {
         await journal.add(userInfo.sub, category, title, entry).then(response => {
-          console.log(response);
           console.log("Journal entry added.");
         })
       } else {
@@ -445,6 +445,7 @@ export default function Journal() {
         console.log("Journal entry was deleted.");
       })
       setEdit(!edit)
+      loadEntries();
       navigation.navigate('Journal')
     }
     const saveEntry = async () => {
