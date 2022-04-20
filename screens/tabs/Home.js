@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { View, Text, StyleSheet, Pressable, DevSettings} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack'
@@ -33,7 +33,7 @@ export default function Home() {
 const signOut = async () => {
   Auth.signOut().then(response => {
       console.log("User signed out.");
-      window.location.reload();
+      DevSettings.reload();
   })
 }
 
@@ -47,7 +47,7 @@ const signOut = async () => {
         <Pressable style={styles.button} onPress={() => navigation.navigate('Journal')}><Text style={styles.buttonText}>Organize Thoughts</Text></Pressable>
         <Pressable style={styles.button} onPress={() => navigation.navigate('Goals')}><Text style={styles.buttonText}>Monitor Goals</Text></Pressable>
         <Pressable style={styles.button} onPress={() => navigation.navigate('Health')}><Text style={styles.buttonText}>Assess Mental Health</Text></Pressable>
-        <Pressable style={styles.button} onPress={() => navigation.navigate('Talk')}><Text style={styles.buttonText}>Talk to Professionals</Text></Pressable>
+        <Pressable style={styles.button} onPress={() => navigation.navigate('Resources')}><Text style={styles.buttonText}>Talk to Professionals</Text></Pressable>
         <Pressable style={styles.button} onPress={() => navigation.navigate('Settings')}><Text style={styles.buttonText}>Settings</Text></Pressable>
         <Pressable style = {styles.logout} onPress={() => signOut()}><Text>Logout</Text></Pressable>
 
@@ -62,7 +62,7 @@ const signOut = async () => {
        <Stack.Screen name="Journal" options={{headerShown: false}} component={Journal} />
        <Stack.Screen name="Goals" options={{headerShown: false}} component={Goals} />
        <Stack.Screen name="Health" options={{headerShown: false}} component={Wellness} />
-       <Stack.Screen name="Talk" options={{headerShown: false}} component={Resources} />
+       <Stack.Screen name="Resources" options={{headerShown: false}} component={Resources} />
 
    </Stack.Navigator>
   )

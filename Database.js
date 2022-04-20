@@ -38,7 +38,7 @@ class Database {
     async editValues(table, identifier, identifier_value, columns, values) {
         let updateString = '';
         columns.forEach((item, i) => {
-            updateString += item + ' = "' + values[i] + '",';
+            updateString += item + " = '" + values[i] + "',";
         });
         // remove extra comma
         updateString = updateString.slice(0, -1);
@@ -210,12 +210,12 @@ class GoalTracker {
         return this.db.readValues(this.table, 'uid', userID);
     }
 
-    async add(userID, category, name, time, freq, notification, progress, customHour) {
-        return await this.db.insertValues(this.table, ['uid', 'category', 'name', 'time', 'freq', 'notification', 'progress', 'customHour'], [userID, category, name, time, freq, notification, progress, customHour])
+    async add(userID, category, name, time, freq, notification, progress, nfHour, nfMin) {
+        return await this.db.insertValues(this.table, ['uid', 'category', 'name', 'time', 'freq', 'notification', 'progress', 'nfHour', 'nfMin'], [userID, category, name, time, freq, notification, progress, nfHour, nfMin])
     }
 
-    async edit(userID, timestamp, category, name, time, freq, notification, progress, customHour) { //checks the condition where column uid = userID
-        return await this.db.editCompositeValues(this.table, ['uid', 'timestamp'], [userID, timestamp], ['category', 'name', 'time', 'freq', 'notification', 'progress', 'customHour'], [category, name, time, freq, notification, progress, customHour])
+    async edit(userID, timestamp, category, name, time, freq, notification, progress, nfHour, nfMin) { //checks the condition where column uid = userID
+        return await this.db.editCompositeValues(this.table, ['uid', 'timestamp'], [userID, timestamp], ['category', 'name', 'time', 'freq', 'notification', 'progress', 'nfHour', 'nfMin'], [category, name, time, freq, notification, progress, nfHour, nfMin])
     }
 
     async update(userID, timestamp, progress) { //checks the condition where column uid = userID
@@ -228,26 +228,37 @@ class GoalTracker {
 }
 
 class UserSettings {
-    constructor(userID) {
+    constructor() {
         this.db = new Database();
         this.table = 'user_settings';
-        this.userID = userID;
     }
 
-    async addNewUser(userID) {
-        return this.db.insertValues(this.table, ['uid'], this.userID);
+    async addNewUser(userID, user_email) {
+        return this.db.insertValues(this.table, ['uid', 'email'], [userID, user_email]);
     }
 
-    async getUserSettings() {
-        return this.db.getSingleValue(this.table, 'uid', this.userID)
+    async getUserSettings(userID) {
+        return this.db.getSingleValue(this.table, 'uid', userID);
+    }
+
+    async getFriendID(user_email) {
+        return this.db.getSingleValue(this.table, 'email', user_email);
     }
 
     async updateUserSettings(userID, min_stress, min_energy, min_anxiety, max_stress, max_energy, max_anxiety) {
-        return this.db.editValues(this.table, 'uid', this.userID, ['min_stress', 'min_energy', 'min_anxiety', 'max_stress', 'max_energy', 'max_anxiety'], [min_stress, min_energy, min_anxiety, max_stress, max_energy, max_anxiety]);
+        return this.db.editValues(this.table, 'uid', userID, ['min_stress', 'min_energy', 'min_anxiety', 'max_stress', 'max_energy', 'max_anxiety'], [min_stress, min_energy, min_anxiety, max_stress, max_energy, max_anxiety]);
     }
 
-    async acceptFriendInvitation(userID, friendID) {
+    async addFriendRequest(userID, updatedRequests) {
+        return this.db.editValues(this.table, 'uid', userID, ['pending_invitations'], [updatedRequests]);
+    }
 
+    async removeFriendRequest(userID, updatedRequests) {
+        return this.db.editValues(this.table, 'uid', userID, ['pending_invitations'], [updatedRequests]);
+    }
+
+    async addFriend(userID, updatedFriends) {
+        return this.db.editValues(this.table, 'uid', userID, ['friends'], [updateFriends])
     }
 
     async updateFriendPermissions(userID, friendID) {

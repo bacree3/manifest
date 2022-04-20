@@ -17,7 +17,7 @@ const RecResourceCard = (props) => {
       </Wrapper>
     </Content>
   </Container>
-    
+
   )
 }
 
@@ -87,5 +87,5 @@ const Title = styled.Text`
   width: 170px;
   padding: 10px;
   border-radius: 5px;
-  
+
 `;

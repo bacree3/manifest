@@ -80,7 +80,7 @@ export default function Resources() {
     <ScrollView style={{ height: "100%" }}>
       <Text style={styles.text}>O T H E R     R E S O U R C E S</Text>
       <Text style={styles.message}>This app does NOT replace therapy, medication, or other forms of treatment. Please stay informed about what is right for you.</Text>
-      <Text style={styles.message}>If this is a life-thretening emergency, please call 911</Text>
+      <Text style={styles.message}>If this is a life-threatening emergency, please call 911</Text>
 
       <Text style={styles.header}>Recommended Resources</Text>
 
