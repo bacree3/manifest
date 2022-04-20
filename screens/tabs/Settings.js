@@ -20,10 +20,10 @@ const Stack = createStackNavigator();
 
 export default function Settings() {
 
-const [friends, setFriends] = useState([]);
-const [friendRequests, setFriendRequests] = useState([]);
-const [userSettings, setUserSettings] = useState("");
-const [requestEmail, setRequestEmail] = useState("");
+  const [friends, setFriends] = useState([]);
+  const [friendRequests, setFriendRequests] = useState([]);
+  const [userSettings, setUserSettings] = useState("");
+  const [requestEmail, setRequestEmail] = useState("");
 
   const [testQuery, setTestQuery] = useState("");
   const [userInfo, setUserInfo] = useState("");
@@ -283,7 +283,6 @@ const denyFriendRequest = () => {
                   />
                   <Text style={{marginTop: 7}}> AM    </Text>
                   <RadioButton
-                    //style={styles.radio}
                     value="pm"
                     status={ checked === 'pm' ? 'checked' : 'unchecked' }
                     onPress={() => setChecked('pm')}

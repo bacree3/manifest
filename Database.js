@@ -210,12 +210,12 @@ class GoalTracker {
         return this.db.readValues(this.table, 'uid', userID);
     }
 
-    async add(userID, category, name, time, freq, notification, progress, customHour) {
-        return await this.db.insertValues(this.table, ['uid', 'category', 'name', 'time', 'freq', 'notification', 'progress', 'customHour'], [userID, category, name, time, freq, notification, progress, customHour])
+    async add(userID, category, name, time, freq, notification, progress, nfHour, nfMin) {
+        return await this.db.insertValues(this.table, ['uid', 'category', 'name', 'time', 'freq', 'notification', 'progress', 'nfHour', 'nfMin'], [userID, category, name, time, freq, notification, progress, nfHour, nfMin])
     }
 
-    async edit(userID, timestamp, category, name, time, freq, notification, progress, customHour) { //checks the condition where column uid = userID
-        return await this.db.editCompositeValues(this.table, ['uid', 'timestamp'], [userID, timestamp], ['category', 'name', 'time', 'freq', 'notification', 'progress', 'customHour'], [category, name, time, freq, notification, progress, customHour])
+    async edit(userID, timestamp, category, name, time, freq, notification, progress, nfHour, nfMin) { //checks the condition where column uid = userID
+        return await this.db.editCompositeValues(this.table, ['uid', 'timestamp'], [userID, timestamp], ['category', 'name', 'time', 'freq', 'notification', 'progress', 'nfHour', 'nfMin'], [category, name, time, freq, notification, progress, nfHour, nfMin])
     }
 
     async update(userID, timestamp, progress) { //checks the condition where column uid = userID
