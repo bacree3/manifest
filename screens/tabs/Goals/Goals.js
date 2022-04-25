@@ -250,6 +250,7 @@ export default function Goals() {
       },
       notifyTitle: {
         marginLeft: 20,
+        marginRight: 10,
         marginBottom: 8,
         marginTop: 10,
         fontSize: 16,
@@ -259,12 +260,13 @@ export default function Goals() {
         textAlign: 'center',
         justifyContent: 'center',
         padding: 5,
-        width: 150
+        width: 170
       },
       notifyContainer: {
         display: 'flex',
         flexDirection: 'row',   
-        margin: 5    
+        margin: 5,
+        alignItems: 'center'    
       },
       notify: {
         backgroundColor: '#ffffff',
@@ -598,7 +600,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: 'bold',
     color: '#4A4A4A',
-    marginTop: 50,
+    marginTop: 100,
     marginBottom: 30
   },
   add: {
