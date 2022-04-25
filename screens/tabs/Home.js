@@ -10,6 +10,7 @@ import Goals from './Goals/Goals';
 import Wellness from './Wellness/Wellness';
 import Resources from './Resources';
 import Settings from './Settings';
+import ProfileSettings from './ProfileSettings';
 
 const Stack = createStackNavigator();
 
@@ -64,7 +65,7 @@ const signOut = async () => {
        <Stack.Screen name="Goals" options={{headerShown: false}} component={Goals} />
        <Stack.Screen name="Health" options={{headerShown: false}} component={Wellness} />
        <Stack.Screen name="Resources" options={{headerShown: false}} component={Resources} />
-       <Stack.Screen name="Settings" options={{headerShown: false}} component={Settings} />
+       <Stack.Screen name="Settings" options={{headerShown: false}} component={ProfileSettings} />
 
 
    </Stack.Navigator>

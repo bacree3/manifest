@@ -6,6 +6,7 @@ import Home from  '../screens/tabs/Home';
 import Journal from '../screens/tabs/Journal/Journal';
 import Wellness from '../screens/tabs/Wellness/Wellness';
 import Goals from '../screens/tabs/Goals/Goals';
+import ProfileSettings from '../screens/tabs/ProfileSettings';
 
 
 import {StyleSheet} from 'react-native';
