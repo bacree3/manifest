@@ -23,7 +23,7 @@ const RecResourceCard = (props) => {
 
 export default RecResourceCard
 
-const Content = styled.View`
+/* const Content = styled.View`
   padding-left: 20px;
   flex-direction: row;
   align-items: center;
@@ -88,4 +88,4 @@ const Title = styled.Text`
   padding: 10px;
   border-radius: 5px;
 
-`;
+`; */
