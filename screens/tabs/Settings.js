@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, TextInput, StyleSheet, Pressable, Switch, Platform, Keyboard, DevSetting, ScrollView } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Pressable, Switch, Platform, DevSetting, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
