@@ -23,23 +23,13 @@ export default function Settings() {
   const [friends, setFriends] = useState([]);
   const [friendRequests, setFriendRequests] = useState([]);
   const [userSettings, setUserSettings] = useState("");
-  const [requestEmail, setRequestEmail] = useState("");
+ 
 
   const [testQuery, setTestQuery] = useState("");
   const [userInfo, setUserInfo] = useState("");
   const navigation = useNavigation();
 
-  const [notificationsEnabled, setNotificationsEnabled] = useState(false);
-  const notificationSwitch = () => setNotificationsEnabled(previousState => !previousState);
-  const [shareEnabled, setShareEnabled] = useState(false);
-  const shareSwitch = () => setShareEnabled(previousState => !previousState);
 
-  const [hour, setHour] = useState("12");
-  const [minute, setMinute] = useState("00");
-  const [checked, setChecked] = React.useState('am');
-
-  const [notificationHr, setNotificationHr] = useState(0);
-  const [notificationMin, setNotificationMin] = useState(0);
 
   const [expoPushToken, setExpoPushToken] = useState('');
   const [notification, setNotification] = useState(false);
@@ -146,53 +136,61 @@ export default function Settings() {
       }
   }
 
-const sendRequest = () => {
-    try {
-      console.log("getting new friend id");
-      user_data.getFriendID(requestEmail).then(response => {
-          console.log("getting friend settings");
-          user_data.getUserSettings(response.data[0][0]).then(response => {
-              let originalRequests = response.data[0][5];
-              let updatedRequests = [];
-              if (originalRequests == null) {
-                  console.log("no current invitations")
-                  updatedRequests.push(requestEmail);
-              } else {
-                  console.log("appending to list")
-                  updatedRequests = JSON.parse(response.data[0][5])
-                  updatedRequests.push(userInfo.email);
-              }
-              console.log(updatedRequests)
-              updatedRequests = JSON.stringify(updatedRequests);
-              console.log(updatedRequests)
-              user_data.addFriendRequest(userInfo.sub, updatedRequests).then(response => {
-                console.log(response);
-                console.log("Requests updated.");
-              })
-          });
-      });
-  } catch (e) {
-      alert(e);
-  } finally {
-      setRequestEmail("");
+
+  const SettingsComponent = () => {
+    const [requestEmail, setRequestEmail] = useState("");
+    const [hour, setHour] = useState("12");
+    const [minute, setMinute] = useState("00");
+    const [checked, setChecked] = React.useState('am');
+    
+    const [notificationHr, setNotificationHr] = useState(0);
+    const [notificationMin, setNotificationMin] = useState(0);
+    const [notificationsEnabled, setNotificationsEnabled] = useState(false);
+    const notificationSwitch = () => setNotificationsEnabled(previousState => !previousState);
+    const [shareEnabled, setShareEnabled] = useState(false);
+    const shareSwitch = () => setShareEnabled(previousState => !previousState);
+
+
+  
+    const sendRequest = () => {
+      try {
+        console.log("getting new friend id");
+        user_data.getFriendID(requestEmail).then(response => {
+            console.log("getting friend settings");
+            user_data.getUserSettings(response.data[0][0]).then(response => {
+                let originalRequests = response.data[0][5];
+                let updatedRequests = [];
+                if (originalRequests == null) {
+                    console.log("no current invitations")
+                    updatedRequests.push(requestEmail);
+                } else {
+                    console.log("appending to list")
+                    updatedRequests = JSON.parse(response.data[0][5])
+                    updatedRequests.push(userInfo.email);
+                }
+                console.log(updatedRequests)
+                updatedRequests = JSON.stringify(updatedRequests);
+                console.log(updatedRequests)
+                user_data.addFriendRequest(userInfo.sub, updatedRequests).then(response => {
+                  console.log(response);
+                  console.log("Requests updated.");
+                })
+            });
+        });
+    } catch (e) {
+        alert(e);
+    } finally {
+        setRequestEmail("");
+    }
   }
-}
 
-const acceptFriendRequest = () => {
+  const acceptFriendRequest = () => {
     // todo
-}
-
-const denyFriendRequest = () => {
-    // todo
-}
-
-  const signOut = async () => {
-    Auth.signOut().then(response => {
-        console.log("User signed out.");
-        DevSettings.reload();
-    })
   }
 
+  const denyFriendRequest = () => {
+      // todo
+  }
   const setNotificationTime = () => {
     //console.log(Number(hour) + ":" + Number(minute) + " " + checked);
     setNotificationMin(Number(minute));
@@ -237,11 +235,9 @@ const denyFriendRequest = () => {
     Notifications.cancelAllScheduledNotificationsAsync();
   }
 
-
-  const SettingsComponent = () => {
     return (
       <ScrollView style={styles.container}>
-        <View style = {styles.center}>
+        <View>
             <View style={styles.title}>
               <Text style={styles.welcome}>P R O F I L E   S E T T I N G S</Text>
             </View>
@@ -340,7 +336,6 @@ const denyFriendRequest = () => {
           ))}
         </View>
         </View>
-        <Pressable style = {styles.add} onPress={() => signOut()}><Text>Logout</Text></Pressable>
       </ScrollView>
     )
   }
@@ -395,18 +390,13 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: '#F8F8F8',
-      margin: 10
-    },
-    center: {
-        flex: 1,
-        backgroundColor: '#F8F8F8',
-        margin: 10,
-        alignItems: 'center'
+      margin: 10,
     },
     bodyText: {
       display: 'flex',
       marginTop: 10,
-      fontSize: 30,
+      fontSize: 16,
+      fontWeight: 'bold',
     },
   buttonText: {
       color: 'white'
@@ -435,7 +425,7 @@ const styles = StyleSheet.create({
       marginTop: 5
   },
   requestText: {
-      fontSize: 20,
+      fontSize: 15,
       marginTop: 10
   },
   toggleText: {
@@ -445,14 +435,14 @@ const styles = StyleSheet.create({
       paddingHorizontal: 10
   },
   title: {
-    flexDirection: 'row'
+    textAlign: 'center'
   },
   welcome: {
       textAlign: 'center',
       fontSize: 24,
       fontWeight: 'bold',
       color: '#BDE3DF',
-      marginTop: 50,
+      marginTop: 100,
       marginBottom: 20,
   },
   text: {
@@ -481,7 +471,7 @@ const styles = StyleSheet.create({
   },
   unitContainer: {
     flexDirection: 'row',
-    marginLeft: 80,
+    marginLeft: 20,
     alignContent: 'center',
     alignItems: 'center'
 
@@ -502,12 +492,11 @@ const styles = StyleSheet.create({
   },
   radio: {
     flexDirection: 'row',
-    marginLeft: 123,
-    alignContent: 'center',
-    alignItems: 'center'
+    marginLeft: 20,
   },
   save: {
-    marginLeft: 165,
+    marginLeft: 20,
+    marginBottom: 10,
     textAlign: 'center',
     backgroundColor: '#D6DEE5',
     paddingVertical: 8,
@@ -549,6 +538,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 10,
     borderRadius: 4,
-    marginBottom: 50
+    marginBottom: 20
   },
 });
