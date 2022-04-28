@@ -20,14 +20,14 @@ logger.setLevel(logging.INFO)
 try:
     conn = pymysql.connect(host=rds_host, user=name, passwd=password, db=db_name, connect_timeout=5)
     response = client.verify_software_token(
-        AccessToken='string',
-        Session='string',
-        UserCode='string',
-        FriendlyDeviceName='string'
+        AccessToken=client.token,
+        Session=client.session,
+        UserCode=client.sub,
+        FriendlyDeviceName=client.device_id
     )
     if not response:
         throw Exception("Session not valid.")
-        
+
 except pymysql.MySQLError as e:
     logger.error("ERROR: Unexpected error: Could not connect to MySQL instance.")
     logger.error(e)
